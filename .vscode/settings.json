@@ -1,0 +1,12 @@
+{
+    "java.jdt.ls.java.home": "/Users/nicholas/.sdkman/candidates/java/current",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/Users/nicholas/.sdkman/candidates/java/current",
+            "default": true
+        }
+    ],
+    "java.showProjectSettingsPage": "never",
+    "java.compile.nullAnalysis.mode": "automatic"
+}
