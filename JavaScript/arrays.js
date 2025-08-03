@@ -20,6 +20,7 @@ fruits.splice(0, 1);          // remove by index
 
 // Slice
 console.log(fruits.slice(1, 3));  // elements 1 and 2
+console.log(fruits.slice(1));  // elements 1 and onward
 
 // Iterate
 for (const fruit of fruits) {

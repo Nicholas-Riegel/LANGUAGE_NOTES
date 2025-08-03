@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ArrayLists {
     public static void main(String[] args) {
+        
         // Create
         ArrayList<String> fruits = new ArrayList<>();
         fruits.add("apple");
@@ -127,11 +128,5 @@ public class ArrayLists {
         combined.addAll(list1);
         combined.addAll(list2);  // [1, 2, 3, 4, 5, 6]
         
-        // Function with variable arguments (varargs)
-        System.out.println(addThree(1, 2, 3));
-    }
-    
-    public static int addThree(int a, int b, int c) {
-        return a + b + c;
-    }
+    }   
 }

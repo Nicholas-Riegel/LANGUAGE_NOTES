@@ -1,11 +1,8 @@
 public class Strings {
     public static void main(String[] args) {
-        // String creation
-        String text = "Hello World";
-        String multiline = "This is a\nmultiline string";
-        
+
         // String concatenation
-        String greeting = "Hello" + " " + "World";
+        String text = "Hello " + "World";
         String name = "Alice";
         String message = String.format("Hello %s!", name);
         
@@ -14,16 +11,8 @@ public class Strings {
         System.out.println(text.toLowerCase());     // "hello world"
         System.out.println(capitalize(text));       // "Hello world"
         
-        // String checking
-        System.out.println(text.startsWith("Hello"));  // true
-        System.out.println(text.endsWith("World"));    // true
-        System.out.println(isDigit("123"));             // true
-        System.out.println(isAlpha("abc"));             // true
-        System.out.println(isAlnum("abc123"));          // true
-        
         // String searching
         System.out.println(text.indexOf("World"));     // 6 (index of first occurrence)
-        System.out.println(countOccurrences(text, "l")); // 3 (count occurrences)
         
         // String replacement
         String newText = text.replace("World", "Java");
@@ -43,10 +32,8 @@ public class Strings {
         // String trimming
         String spaced = "  Hello World  ";
         System.out.println(spaced.trim());             // "Hello World"
-        // Note: stripLeading() and stripTrailing() available in Java 11+
         
         // String slicing (using substring)
-        System.out.println(text.substring(0, 5));      // "Hello"
         System.out.println(text.substring(0, 5));      // "Hello"
         System.out.println(text.substring(6));         // "World"
         System.out.println(text.substring(text.length() - 5)); // "World"
@@ -59,43 +46,62 @@ public class Strings {
         System.out.println(text.contains("World"));    // true
         System.out.println(!text.contains("Python"));  // true
         
-        // String formatting
-        int age = 25;
-        String formatted = String.format("I am %d years old", age);
-        
         // Multiple values
         String personName = "Bob";
         int personAge = 30;
         String info = String.format("Name: %s, Age: %d", personName, personAge);
         
-        // String escape characters
-        String escaped = "He said \"Hello\"";
-        String newline = "Line 1\nLine 2";
-        String tab = "Column1\tColumn2";
-        
-        // String comparison
-        System.out.println("apple".compareTo("banana") < 0);  // true (alphabetical order)
-        System.out.println("Apple".compareTo("apple") < 0);   // true (uppercase comes first)
-        
-        // String repetition
-        String repeated = repeatString("Ha", 3);        // "HaHaHa"
-        
         // Check if string is empty
         String empty = "";
         System.out.println(empty.length() == 0);        // true
         System.out.println(empty.isEmpty());            // true
-        // Note: isBlank() available in Java 11+
         
         // Additional useful methods
         System.out.println(text.charAt(0));             // 'H' (character at index)
-        System.out.println((int) text.charAt(0));       // 72 (ASCII code)
         
-        // String builder for efficient concatenation
+        // StringBuilder for efficient concatenation
         StringBuilder sb = new StringBuilder();
         sb.append("Hello");
         sb.append(" ");
         sb.append("World");
         System.out.println(sb.toString());              // "Hello World"
+        
+        // StringBuilder main methods demonstration
+        StringBuilder builder = new StringBuilder("Java Programming");
+        System.out.println("Original: " + builder.toString());  // "Java Programming"
+        
+        // append() - add to the end
+        builder.append(" Language");
+        System.out.println("After append: " + builder.toString());  // "Java Programming Language"
+        
+        // insert() - add at specific position
+        builder.insert(5, "Awesome ");
+        System.out.println("After insert: " + builder.toString());  // "Java Awesome Programming Language"
+        
+        // delete() - remove characters between indices
+        builder.delete(5, 13);  // Remove "Awesome "
+        System.out.println("After delete: " + builder.toString());  // "Java Programming Language"
+        
+        // deleteCharAt() - remove character at specific index
+        builder.deleteCharAt(builder.length() - 1);  // Remove last character
+        System.out.println("After deleteCharAt: " + builder.toString());  // "Java Programming Languag"
+        
+        // replace() - replace substring
+        builder.replace(5, 16, "Coding");  // Replace "Programming" with "Coding"
+        System.out.println("After replace: " + builder.toString());  // "Java Coding Languag"
+        
+        // reverse() - reverse the entire string
+        StringBuilder reversed = new StringBuilder(builder).reverse();
+        System.out.println("Reversed: " + reversed.toString());  // "gaugnaL gnidoC avaJ"
+        
+        // setCharAt() - change character at specific position
+        builder.setCharAt(0, 'j');  // Change 'J' to 'j'
+        System.out.println("After setCharAt: " + builder.toString());  // "java Coding Languag"
+        
+        // substring() - extract part of the string (creates new String)
+        StringBuilder sub = new StringBuilder("Hello World");
+        System.out.println("Substring(0,5): " + sub.substring(0, 5));  // "Hello"
+        System.out.println("Substring(6): " + sub.substring(6));        // "World"
     }
     
     // Helper methods

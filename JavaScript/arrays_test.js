@@ -8,6 +8,14 @@
 
 // remove from beginning
 
+// insert at index
+
+// remove at index
+
 // remove by name
 
-// slice
+// access by index
+
+// modify at index
+
+// copy subset

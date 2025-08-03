@@ -1,13 +1,30 @@
-// create an ArrayList
+import java.util.ArrayList;
 
-// add to end
+public class ArrayLists_test {
+    
+    public static void main(String[] args) {
 
-// add to beginning
+        // create an ArrayList
 
-// remove from end
+        // add to end
 
-// remove from beginning
+        // add to beginning
 
-// remove by name
+        // remove from end
 
-// slice (subList)
+        // remove from beginning
+
+        // insert at index
+        
+        // remove at index
+
+        // remove by name
+
+        // access by index
+
+        // modify at index
+
+        // copy subset
+	}
+
+}
