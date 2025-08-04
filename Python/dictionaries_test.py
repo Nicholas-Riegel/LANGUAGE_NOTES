@@ -1,39 +1,40 @@
 # create a dictionary
-# dict0 = {
-#     "name": "John",
-#     "age": 32
-# }
-dict1 = dict(
-    name = "Mary",
-    age = 11
-)
+dict0 = {
+    "name": "john",
+    "age": 32
+}
+
 # add to it
-# dict0["email"] = "j@gmail.com"
-dict1["email"] = "m@gmail.com"
+dict0["address"] = "Maine"
+
+# modify entry
+dict0["name"] = "John"
 
 # remove from it
-# del dict0["email"]
-# dict0.pop("email")
+# del dict0["address"]
 
-# get
-# print(
-#     dict0.get("name", "Not found.")
-# )
+# get an entry
+# print(dict0["name"])
 
 # check for key
-# if "name" in dict0:
+# if "name" in dict0.keys():
+#     print("true")
+
+# check for a value
+# if "John" in dict0.values():
 #     print("true")
 
 # print all the keys
-# for k in dict0.keys():
-#     print(k)
+# for key in dict0.keys():
+#     print(key)
 
 # print all the values
-# for v in dict0.values():
-#     print(v)
+# for val in dict0.values():
+#     print(val)
 
 # print all the keys and values
-# for k, v in dict0.items():
-#     print(f"{k}: {v}")
+# for key, val in dict0.items():
+#     print(key, val)
 
-print(dict1)
+print(dict0.items())
+print(dict0)

@@ -2,11 +2,15 @@
 
 // add to it
 
-// add to beginning
+// modify entry
 
 // remove from it
 
+// get an entry
+
 // check for key
+
+// check for a value
 
 // print all the keys
 
