@@ -17,6 +17,7 @@ int main(){
     
     // insert at index
     vect.insert(vect.begin() + 2, "c");
+    vect.insert(vect.begin() + 2, "c");
     
     // remove from end
     // vect.pop_back();
@@ -29,16 +30,32 @@ int main(){
     // string removed = vect[2];
     // vect.erase(vect.begin() + 2);
     
-    // remove by name
-    
+    // remove by value
+    auto it = find(vect.begin(), vect.end(), "c");
+    if (it != vect.end()) {
+        vect.erase(it);
+    }
+
+    // Remove all occurrences
+    // while (true) {
+    //     auto it = find(vect.begin(), vect.end(), "c");
+    //     if (it != vect.end()) {
+    //         vect.erase(it);
+    //     } else {
+    //         break;  // No more "c" found
+    //     }
+    // }
+
     // access by index
-    
+    // cout << vect[2] << endl;
+
     // modify at index
+    vect[2] = "C";
     
     // copy subset
  
-    // for (string e : vect) { // slower; creates a copy
-    for (const auto& e : vect) { // faster; only creates a reference
+    // for (const auto& e : vect) { // faster; only creates a reference
+    for (string e : vect) { // slower; creates a copy
         cout << e << " ";
     }
 
