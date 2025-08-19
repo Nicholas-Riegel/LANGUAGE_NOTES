@@ -71,7 +71,7 @@ int main() {
 	vector<string> brands = {"Volvo", "BMW", "Ford", "BMW", "Mazda"};
 	for (auto it = brands.begin(); it != brands.end(); ) {
 		if (*it == "BMW") {
-			it = brands.erase(it); // Remove BMW
+			it = brands.erase(it); // brands.erase(it) removes the element at the iterator it and returns a new iterator pointing to the element immediately after the erased one.
 		} else {
 			++it;
 		}
