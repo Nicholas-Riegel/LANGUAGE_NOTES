@@ -1,9 +1,3 @@
-// C++ Vectors Summary
-// Based on: https://www.w3schools.com/cpp/cpp_vectors.asp
-//
-// A vector is a dynamic array that can grow or shrink in size.
-// Use #include <vector> to use vectors.
-
 #include <iostream>
 #include <vector>
 #include <string>
