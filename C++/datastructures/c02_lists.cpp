@@ -1,6 +1,3 @@
-// C++ std::list Summary
-// Based on: https://www.w3schools.com/cpp/cpp_list.asp
-//
 // A list is a sequence container that can store multiple elements of the same type and can grow or shrink dynamically.
 // Key differences from vector:
 //   - You can add and remove elements from both the beginning and the end of a list (push_front, push_back, pop_front, pop_back).
@@ -14,6 +11,8 @@
 using namespace std;
 
 int main() {
+
+	
 	// Create a list
 	list<string> cars = {"Volvo", "BMW", "Ford", "Mazda"};
 
@@ -35,6 +34,22 @@ int main() {
 	cars.pop_front();
 	cars.pop_back();
 	cout << "After pop_front and pop_back, first: " << cars.front() << ", last: " << cars.back() << endl;
+
+    // =====================
+	// Add to the middle of a list
+	// =====================
+	// To insert into the middle, use insert() with an iterator.
+	// The std::next() function advances an iterator by a given number of steps.
+    // Example: Insert "Chevy" before the 3rd element (index 2)
+	auto midIt = next(cars.begin(), 2); // points to the 3rd element
+	cars.insert(midIt, "Chevy");
+	cout << "After insert in middle: ";
+	for (const string& car : cars) cout << car << " ";
+	cout << endl;
+
+	// Explanation of next():
+	// std::next(it, n) returns an iterator advanced by n steps from it, without modifying it.
+	// Useful for containers like list that do not support random access.
 
 	// List size
 	cout << "List size: " << cars.size() << endl;

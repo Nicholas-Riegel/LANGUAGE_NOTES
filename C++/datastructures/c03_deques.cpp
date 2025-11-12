@@ -1,6 +1,3 @@
-// C++ std::deque Summary
-// Based on: https://www.w3schools.com/cpp/cpp_deque.asp
-//
 // A deque (double-ended queue) is a sequence container that allows fast insertion and removal of elements at both the front and the back.
 // Key features:
 //   - Elements can be added/removed from both ends (push_front, push_back, pop_front, pop_back).
@@ -37,6 +34,23 @@ int main() {
 	cars.pop_back();
 	cout << "After pop_front and pop_back, first: " << cars.front() << ", last: " << cars.back() << endl;
 
+
+	// =====================
+	// Add to the middle of a deque
+	// =====================
+	// You can insert into the middle using insert() with an iterator.
+	// Deques support random access, so you can use begin() + n or std::next(begin(), n).
+	// Example: Insert "Chevy" before the 3rd element (index 2)
+	auto midIt = cars.begin() + 2; // or: auto midIt = std::next(cars.begin(), 2);
+	cars.insert(midIt, "Chevy");
+	cout << "After insert in middle: ";
+	for (const string& car : cars) cout << car << " ";
+	cout << endl;
+
+	// Note: For random-access containers (vector, deque), begin() + n is efficient.
+	// For non-random-access containers (list), use std::next().
+	// =====================
+    
 	// Deque size
 	cout << "Deque size: " << cars.size() << endl;
 

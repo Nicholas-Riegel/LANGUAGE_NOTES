@@ -1,6 +1,3 @@
-// C++ std::queue Summary
-// Based on: https://www.w3schools.com/cpp/cpp_queues.asp
-//
 // A queue is a container that stores elements in FIFO (First In, First Out) order.
 // Think of a queue like people in line: the first person in is the first person out.
 //

@@ -1,6 +1,3 @@
-// C++ Iterators Summary
-// Based on: https://www.w3schools.com/cpp/cpp_iterators.asp
-//
 // Iterators are objects that point to elements in containers (vector, list, set, map, etc.).
 // They are used to access, modify, and loop through elements, similar to pointers.
 //

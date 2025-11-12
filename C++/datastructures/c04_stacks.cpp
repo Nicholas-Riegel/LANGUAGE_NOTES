@@ -4,10 +4,23 @@
 // A stack is a container that stores elements in LIFO (Last In, First Out) order.
 // Think of a stack like a pile of pancakes: you add and remove from the top only.
 //
-// Key features:
-//   - Only the top element can be accessed (no random access or indexing).
-//   - Use push() to add, pop() to remove, and top() to access/change the top element.
-//   - Use size() to get the number of elements, and empty() to check if the stack is empty.
+
+// Advantages:
+//   - Simple and efficient for LIFO operations (push/pop/top are O(1)).
+//   - Prevents accidental access to elements other than the top (enforces LIFO discipline).
+//   - Useful for problems where you need to reverse data or track nested/recursive operations.
+
+// Disadvantages:
+//   - No random access (cannot access elements by index or value).
+//   - Only the top element is accessible; can't iterate or search through the stack directly.
+//   - Not suitable for FIFO (queue-like) or random-access needs.
+
+// When to use a stack:
+//   - Undo/redo functionality (editors, apps)
+//   - Parsing expressions (compilers, calculators)
+//   - Backtracking algorithms (DFS, pathfinding, recursion)
+//   - Reversing data (e.g., reversing a string or list)
+//   - Managing function calls (call stack)
 
 #include <iostream>
 #include <stack>

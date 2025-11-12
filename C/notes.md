@@ -1,0 +1,1 @@
+gcc -o program filename.c && ./program
