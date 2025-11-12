@@ -1,34 +1,48 @@
 #include <stdio.h>
 
+// ENUMS IN C
+// ==========
+// Enumerated types - named integer constants
+// Make code more readable than "magic numbers"
+// Values start at 0 by default and increment by 1
+// Syntax: enum name { VALUE1, VALUE2, VALUE3 };
+
 // ===== BASIC ENUM =====
+// Compiler assigns numbers automatically: 0, 1, 2, 3...
 
 enum Day {
-    MONDAY,     // 0
-    TUESDAY,    // 1
+    MONDAY,     // 0 (default first value)
+    TUESDAY,    // 1 (auto-increments)
     WEDNESDAY,  // 2
     THURSDAY,   // 3
     FRIDAY,     // 4
     SATURDAY,   // 5
     SUNDAY      // 6
 };
+// Makes code clearer: "today == MONDAY" vs "today == 0"
 
 // ===== ENUM WITH CUSTOM VALUES =====
+// Can set specific values instead of using defaults
+// Useful for: error codes, flags, specific numeric meanings
 
 enum Status {
-    ERROR = -1,
-    SUCCESS = 0,
+    ERROR = -1,    // Set explicitly
+    SUCCESS = 0,   // Common convention: 0 = success
     PENDING = 1,
     COMPLETE = 2
 };
+// Following values continue from last: if you set one value, next increments from it
 
 // ===== ENUM WITH TYPEDEF =====
+// typedef eliminates need to write "enum" keyword every time
 
 typedef enum {
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW
+    RED,      // 0
+    GREEN,    // 1
+    BLUE,     // 2
+    YELLOW    // 3
 } Color;
+// Now use "Color myColor" instead of "enum Color myColor"
 
 // ===== ENUM FOR MENU OPTIONS =====
 
@@ -39,6 +53,16 @@ typedef enum {
     OPTION_SAVE = 3,
     OPTION_QUIT = 9
 } MenuOption;
+
+// ===== FUNCTION PROTOTYPES =====
+enum Status checkFile(void);
+
+// ===== FUNCTION DEFINITIONS =====
+
+enum Status checkFile(void) {
+    // Simulate file check
+    return SUCCESS;
+}
 
 int main() {
     
@@ -112,10 +136,8 @@ int main() {
     
     printf("\n===== ENUM AS FUNCTION RETURN =====\n");
     
-    enum Status checkFile(void) {
-        // Simulate file check
-        return SUCCESS;
-    }
+    // Functions can return enum values
+    // Makes return values more meaningful than magic numbers
     
     enum Status result = checkFile();
     if (result == SUCCESS) {

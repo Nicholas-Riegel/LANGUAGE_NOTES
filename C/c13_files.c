@@ -2,28 +2,49 @@
 #include <stdlib.h>
 #include <string.h>
 
+// FILE I/O IN C
+// =============
+// C uses FILE pointers to work with files
+// Key functions from <stdio.h>:
+// - fopen(filename, mode): Open file, returns FILE* or NULL
+// - fclose(file): Close file (MUST do this!)
+// - fprintf(file, format, ...): Write formatted text
+// - fscanf(file, format, ...): Read formatted text
+// - fgets(buffer, size, file): Read line
+// - fputs(string, file): Write string
+// - fgetc(file): Read one character
+// - fputc(char, file): Write one character
+// - feof(file): Check if end of file reached
+//
+// CRITICAL: Always check if fopen() returns NULL (file open failed)
+// CRITICAL: Always fclose() when done (flushes buffer, releases resources)
+
 int main() {
     
     printf("===== CREATING AND WRITING TO FILES =====\n");
     
-    // Open file for writing (creates file if doesn't exist, overwrites if exists)
+    // fopen returns FILE pointer (handle to the file)
+    // "w" = write mode (creates if doesn't exist, OVERWRITES if exists!)
     FILE *file = fopen("example.txt", "w");
     
     if (file == NULL) {
+        // File open failed - maybe permissions, disk full, invalid path
         printf("Error opening file\n");
         return 1;
     }
     
+    // fprintf = "file printf" - writes formatted text to file
     fprintf(file, "Hello, File!\n");
     fprintf(file, "This is line 2.\n");
     fprintf(file, "This is line 3.\n");
     
-    fclose(file);  // Always close files!
+    fclose(file);  // Closes file and flushes buffer - ESSENTIAL!
+    // Forgetting fclose() can lose data (buffer not flushed) or leak file handles
     printf("File created and written successfully\n");
     
     printf("\n===== READING FROM FILES =====\n");
     
-    // Open file for reading
+    // "r" = read mode (file MUST exist or fopen returns NULL)
     file = fopen("example.txt", "r");
     
     if (file == NULL) {
@@ -31,18 +52,21 @@ int main() {
         return 1;
     }
     
-    char buffer[100];
+    char buffer[100];  // Buffer to store each line
     
     printf("File contents:\n");
+    // fgets reads one line at a time (up to size-1 chars or until newline)
+    // Returns NULL when end of file reached
     while (fgets(buffer, sizeof(buffer), file) != NULL) {
-        printf("%s", buffer);  // fgets includes newline
+        printf("%s", buffer);  // fgets includes the newline character
     }
     
     fclose(file);
     
     printf("\n===== APPENDING TO FILES =====\n");
     
-    // Open file in append mode (adds to end without overwriting)
+    // "a" = append mode (creates if doesn't exist, adds to END if exists)
+    // Unlike "w", doesn't erase existing content
     file = fopen("example.txt", "a");
     
     if (file == NULL) {
@@ -56,15 +80,19 @@ int main() {
     printf("Text appended to file\n");
     
     printf("\n===== FILE MODES =====\n");
+    // Different modes for different operations:
     printf("\"r\"  - Read (file must exist)\n");
-    printf("\"w\"  - Write (creates/overwrites file)\n");
-    printf("\"a\"  - Append (creates file if doesn't exist)\n");
+    printf("\"w\"  - Write (creates/overwrites file) - DESTROYS existing content!\n");
+    printf("\"a\"  - Append (creates file if doesn't exist) - PRESERVES existing content\n");
     printf("\"r+\" - Read and write (file must exist)\n");
     printf("\"w+\" - Read and write (creates/overwrites file)\n");
     printf("\"a+\" - Read and append\n");
+    // Add 'b' for binary mode: "rb", "wb", "ab" (important for Windows)
     
     printf("\n===== READING CHARACTER BY CHARACTER =====\n");
     
+    // fgetc reads one character at a time
+    // Useful for: parsing, counting characters, fine control
     file = fopen("example.txt", "r");
     
     if (file == NULL) {
@@ -74,9 +102,9 @@ int main() {
     
     printf("First 20 characters:\n");
     for (int i = 0; i < 20; i++) {
-        int ch = fgetc(file);
-        if (ch == EOF) break;
-        putchar(ch);
+        int ch = fgetc(file);  // Returns int, not char (to handle EOF)
+        if (ch == EOF) break;  // EOF = End Of File (special value -1)
+        putchar(ch);  // Print to console
     }
     printf("\n");
     
@@ -95,6 +123,9 @@ int main() {
     
     printf("\n===== WRITING AND READING FORMATTED DATA =====\n");
     
+    // fprintf/fscanf work like printf/scanf but with files
+    // Useful for: storing structured data in text format
+    
     // Write formatted data
     file = fopen("data.txt", "w");
     
@@ -103,6 +134,7 @@ int main() {
         return 1;
     }
     
+    // Write structured records (name, age, height)
     fprintf(file, "%s %d %f\n", "Alice", 25, 5.5);
     fprintf(file, "%s %d %f\n", "Bob", 30, 6.0);
     fprintf(file, "%s %d %f\n", "Charlie", 35, 5.8);
@@ -122,7 +154,9 @@ int main() {
     float height;
     
     printf("Data from file:\n");
+    // fscanf returns number of items successfully read
     while (fscanf(file, "%s %d %f", name, &age, &height) == 3) {
+        // == 3 means all three items read successfully
         printf("Name: %s, Age: %d, Height: %.1f\n", name, age, height);
     }
     

@@ -1,10 +1,19 @@
 #include <stdio.h>
 
+// FUNCTIONS IN C
+// ==============
+// Reusable blocks of code that perform specific tasks
+// Must be DECLARED before use (prototypes) or DEFINED before main()
+// Syntax: return_type function_name(parameters) { code }
+
 // ===== FUNCTION DECLARATIONS (PROTOTYPES) =====
-void greet(void);
-int add(int a, int b);
-void printArray(int arr[], int size);
-void modifyValue(int *ptr);
+// Tell compiler about functions defined later
+// Format: return_type name(parameter_types);
+// Good practice: Declare at top, define after main()
+void greet(void);              // void = returns nothing, (void) = takes no parameters
+int add(int a, int b);         // Takes 2 ints, returns int
+void printArray(int arr[], int size);  // Array parameter
+void modifyValue(int *ptr);    // Pointer parameter (for pass-by-reference)
 void swap(int *a, int *b);
 int factorial(int n);
 
@@ -12,10 +21,12 @@ int main() {
     
     printf("===== CALLING FUNCTIONS =====\n");
     
-    greet();  // Call void function
+    // Call functions by name with arguments in ()
+    greet();  // Call void function (no return value to capture)
     
-    int sum = add(5, 3);
+    int sum = add(5, 3);  // Call function, store return value
     printf("5 + 3 = %d\n", sum);  // 8
+    // Function is executed, result returned and assigned to sum
     
     printf("\n===== FUNCTIONS WITH ARRAYS =====\n");
     

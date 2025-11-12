@@ -1,20 +1,30 @@
 #include <stdio.h>
 #include <string.h>
 
+// STRUCTS IN C
+// ============
+// Custom data types that group related variables together
+// Like objects in other languages, but NO methods (only data)
+// Useful for: representing real-world entities, organizing related data
+// Syntax: struct name { type field1; type field2; ... };
+
 // ===== STRUCT DEFINITION =====
+// Define outside any function (usually at top of file)
 
 struct Person {
-    char name[50];
+    char name[50];   // Multiple fields of different types
     int age;
     float height;
 };
+// Note: struct Person is the full type name in C
 
 // Typedef for cleaner syntax
+// typedef creates an alias so you don't have to write "struct" every time
 typedef struct {
     char brand[50];
     char model[50];
     int year;
-} Car;
+} Car;  // Now you can use "Car" instead of "struct Car"
 
 // Nested struct
 typedef struct {
@@ -28,6 +38,23 @@ typedef struct {
     int age;
     Address address;  // Nested struct
 } Employee;
+
+// ===== FUNCTION PROTOTYPES =====
+// Functions for demonstrating struct passing
+void printCar(Car c);
+void updateYear(Car *c, int newYear);
+
+// ===== FUNCTION DEFINITIONS =====
+
+// Pass by value (creates copy)
+void printCar(Car c) {
+    printf("Car: %s %s (%d)\n", c.brand, c.model, c.year);
+}
+
+// Pass by reference (using pointer)
+void updateYear(Car *c, int newYear) {
+    c->year = newYear;
+}
 
 int main() {
     
@@ -112,15 +139,9 @@ int main() {
     
     printf("\n===== PASSING STRUCTS TO FUNCTIONS =====\n");
     
-    // Pass by value (creates copy)
-    void printCar(Car c) {
-        printf("Car: %s %s (%d)\n", c.brand, c.model, c.year);
-    }
-    
-    // Pass by reference (using pointer)
-    void updateYear(Car *c, int newYear) {
-        c->year = newYear;
-    }
+    // Functions defined at top of file
+    // Pass by value creates a copy (safe but can be slow for large structs)
+    // Pass by reference uses pointer (fast but can modify original)
     
     printCar(myCar);
     printf("Before update: year = %d\n", myCar.year);

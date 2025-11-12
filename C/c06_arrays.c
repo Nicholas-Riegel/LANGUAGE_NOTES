@@ -1,40 +1,65 @@
 #include <stdio.h>
 
+// ARRAYS IN C
+// ===========
+// Collections of elements of the SAME type
+// Fixed size (cannot grow or shrink after creation)
+// Elements stored in contiguous memory locations
+// Access elements using index (starting at 0)
+
 int main() {
     
     printf("===== CREATING ARRAYS =====\n");
     
-    // Create arrays
-    int numbers[] = {1, 2, 3, 4, 5};
-    int scores[5] = {90, 85, 95, 88, 92};
-    char letters[] = {'a', 'b', 'c', 'd'};
+    // Three ways to create arrays:
+    // 1. Let compiler count elements: type name[] = {values}
+    // 2. Specify size: type name[size] = {values}
+    // 3. Just size: type name[size] (uninitialized, contains garbage)
     
-    printf("First number: %d\n", numbers[0]);    // 1
-    printf("Third score: %d\n", scores[2]);      // 95
+    int numbers[] = {1, 2, 3, 4, 5};           // Size auto-calculated (5)
+    int scores[5] = {90, 85, 95, 88, 92};      // Size explicit
+    char letters[] = {'a', 'b', 'c', 'd'};     // Works with any type
+    
+    printf("First number: %d\n", numbers[0]);    // 1 (index starts at 0!)
+    printf("Third score: %d\n", scores[2]);      // 95 (third element = index 2)
     printf("Second letter: %c\n", letters[1]);   // b
+    // Common mistake: Forgetting arrays start at index 0, not 1
     
     printf("\n===== ARRAY SIZE =====\n");
     
-    // Calculate array size
+    // C doesn't store array length - you must calculate it!
+    // sizeof(array) = total bytes, sizeof(array[0]) = bytes per element
+    // Dividing gives number of elements
+    
     int numbersSize = sizeof(numbers) / sizeof(numbers[0]);
     int scoresSize = sizeof(scores) / sizeof(scores[0]);
+    // Example: sizeof(numbers) might be 20 bytes (5 ints × 4 bytes)
+    //          sizeof(numbers[0]) is 4 bytes → 20 ÷ 4 = 5 elements
     
     printf("Numbers array size: %d\n", numbersSize);  // 5
     printf("Scores array size: %d\n", scoresSize);    // 5
+    // Note: This only works in the same scope where array is declared!
     
     printf("\n===== MODIFYING ARRAYS =====\n");
     
-    numbers[0] = 10;
-    numbers[4] = 50;
+    // Arrays are mutable - can change values after creation
+    // Syntax: array[index] = newValue
+    
+    numbers[0] = 10;  // Change first element from 1 to 10
+    numbers[4] = 50;  // Change last element from 5 to 50
     
     printf("Modified first: %d\n", numbers[0]);   // 10
     printf("Modified last: %d\n", numbers[4]);    // 50
+    // Warning: Accessing index beyond size (e.g., numbers[5]) causes undefined behavior!
     
     printf("\n===== LOOPING THROUGH ARRAYS =====\n");
     
+    // Most common pattern: for loop to access each element
+    // Use array size to avoid hardcoding the limit
+    
     printf("All numbers: ");
     for (int i = 0; i < numbersSize; i++) {
-        printf("%d ", numbers[i]);
+        printf("%d ", numbers[i]);  // Access each element by index
     }
     printf("\n");
     
@@ -43,21 +68,27 @@ int main() {
         printf("%d ", scores[i]);
     }
     printf("\n");
+    // If array size changes, loop automatically adjusts (if using sizeof trick)
     
     printf("\n===== MULTIDIMENSIONAL ARRAYS =====\n");
     
-    // 2D array (rows x columns)
-    int matrix[2][3] = {
-        {1, 2, 3},
-        {4, 5, 6}
-    };
+    // Arrays of arrays - think rows and columns
+    // Syntax: type name[rows][columns]
+    // Useful for: grids, matrices, tables
     
-    printf("Element [0][0]: %d\n", matrix[0][0]);  // 1
-    printf("Element [1][2]: %d\n", matrix[1][2]);  // 6
+    int matrix[2][3] = {
+        {1, 2, 3},  // First row
+        {4, 5, 6}   // Second row
+    };
+    // 2 rows, 3 columns = 6 total elements
+    
+    printf("Element [0][0]: %d\n", matrix[0][0]);  // 1 (first row, first column)
+    printf("Element [1][2]: %d\n", matrix[1][2]);  // 6 (second row, third column)
+    // Access: [row][column], both start at 0
     
     printf("Full matrix:\n");
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < 2; i++) {        // Loop through rows
+        for (int j = 0; j < 3; j++) {    // Loop through columns
             printf("%d ", matrix[i][j]);
         }
         printf("\n");

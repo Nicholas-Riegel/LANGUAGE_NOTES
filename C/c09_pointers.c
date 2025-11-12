@@ -1,43 +1,66 @@
 #include <stdio.h>
 
+// POINTERS IN C
+// =============
+// Variables that store memory addresses instead of values
+// One of C's most powerful and dangerous features!
+// Syntax: type *pointer_name
+// & = address-of operator (get address)
+// * = dereference operator (get value at address)
+
 int main() {
     
     printf("===== BASIC POINTERS =====\n");
     
+    // Every variable has a value AND an address in memory
     int age = 25;
-    int *ptr = &age;  // Pointer stores the address of age
+    int *ptr = &age;  // ptr holds the ADDRESS where age is stored
+    // Read as: "ptr is a pointer to an int"
     
-    printf("Value of age: %d\n", age);           // 25
-    printf("Address of age: %p\n", (void*)&age); // e.g., 0x7ffeefbff5ac
-    printf("Value of ptr (address): %p\n", (void*)ptr);  // Same as &age
-    printf("Value at ptr (*ptr): %d\n", *ptr);   // 25
+    printf("Value of age: %d\n", age);           // 25 (the value)
+    printf("Address of age: %p\n", (void*)&age); // e.g., 0x7ffeefbff5ac (memory location)
+    printf("Value of ptr (address): %p\n", (void*)ptr);  // Same address as &age
+    printf("Value at ptr (*ptr): %d\n", *ptr);   // 25 (dereference to get value)
+    // *ptr means "go to address in ptr and get the value there"
     
     printf("\n===== DEREFERENCING POINTERS =====\n");
     
-    *ptr = 30;  // Change value through pointer
-    printf("New age value: %d\n", age);  // 30
-    printf("Value at ptr: %d\n", *ptr);  // 30
+    // Can modify original variable through pointer
+    // This is "pass by reference" - changing value at an address
+    
+    *ptr = 30;  // *ptr = "go to address in ptr and set value to 30"
+    printf("New age value: %d\n", age);  // 30 (age changed!)
+    printf("Value at ptr: %d\n", *ptr);  // 30 (same value)
+    // age and *ptr refer to the SAME memory location
     
     printf("\n===== NULL POINTERS =====\n");
     
-    int *nullPtr = NULL;
+    // NULL pointer points to nothing (address 0)
+    // Common practice: Initialize pointers to NULL if not immediately used
+    
+    int *nullPtr = NULL;  // NULL is defined in stdio.h as (void*)0
     printf("Null pointer value: %p\n", (void*)nullPtr);  // (nil) or 0x0
     
-    // Always check before dereferencing!
+    // Always check before dereferencing! Dereferencing NULL crashes program
     if (nullPtr != NULL) {
-        printf("Value: %d\n", *nullPtr);
+        printf("Value: %d\n", *nullPtr);  // Would crash here!
     } else {
-        printf("Pointer is NULL, cannot dereference\n");  // This prints
+        printf("Pointer is NULL, cannot dereference\n");  // This prints (safe)
     }
+    // Segmentation fault = trying to access invalid memory (often NULL)
     
     printf("\n===== POINTERS AND ARRAYS =====\n");
     
-    int numbers[] = {10, 20, 30, 40, 50};
-    int *numPtr = numbers;  // Array name is pointer to first element
+    // Array name IS a pointer to first element!
+    // This is why arrays "decay" to pointers when passed to functions
     
-    printf("First element: %d\n", *numPtr);       // 10
-    printf("Second element: %d\n", *(numPtr + 1)); // 20
-    printf("Third element: %d\n", numPtr[2]);     // 30 (array syntax works!)
+    int numbers[] = {10, 20, 30, 40, 50};
+    int *numPtr = numbers;  // Same as: int *numPtr = &numbers[0]
+    
+    printf("First element: %d\n", *numPtr);       // 10 (dereference first element)
+    printf("Second element: %d\n", *(numPtr + 1)); // 20 (pointer arithmetic: +1 moves to next int)
+    printf("Third element: %d\n", numPtr[2]);     // 30 (array syntax works on pointers!)
+    // numPtr[2] is identical to *(numPtr + 2)
     
     printf("\n===== POINTER ARITHMETIC =====\n");
     
