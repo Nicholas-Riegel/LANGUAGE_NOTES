@@ -62,10 +62,20 @@ int main() {
     
     // strncpy - safer version, copies max n characters
     char safe[10];
-    strncpy(safe, "TooLongString", 9);  // Only copy 9 chars
-    safe[9] = '\0';  // Must manually add '\0'! strncpy doesn't always add it
+    // strncpy(dest, src, n) copies UP TO n characters from src to dest
+    // "TooLongString" is 13 chars long, but we only copy 9 to avoid overflow
+    
+    // METHOD 1: Manual index (works but error-prone if array size changes)
+    strncpy(safe, "TooLongString", 9);  // Copies: T-o-o-L-o-n-g-S-t (9 chars)
+    safe[9] = '\0';  // Manually terminate at position 9
+    
+    // METHOD 2: Using sizeof() - SAFER, prevents off-by-one errors!
+    strncpy(safe, "TooLongString", sizeof(safe) - 1);  // Leave room for '\0'
+    safe[sizeof(safe) - 1] = '\0';  // Guarantees termination, no off-by-one!
+    
     printf("Safe copy: %s\n", safe);  // TooLongSt
-    // strncpy prevents buffer overflow but requires manual null termination
+    // CRITICAL: strncpy does NOT add '\0' if it copies exactly n characters!
+    // Using sizeof() - 1 prevents off-by-one errors when array size changes
     
     printf("\n===== STRING CONCATENATION =====\n");
     

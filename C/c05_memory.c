@@ -14,9 +14,9 @@
 // - Large data structures that might overflow stack
 //
 // Key functions from <stdlib.h>:
-// - malloc(size): Allocate memory (uninitialized/garbage values)
-// - calloc(count, size): Allocate and zero-initialize
-// - realloc(ptr, newSize): Resize allocated memory
+// - malloc(size): "memory allocate" - Allocate memory (uninitialized/garbage values)
+// - calloc(count, size): "clear/contiguous allocate" - Allocate and zero-initialize
+// - realloc(ptr, newSize): "re-allocate" - Resize allocated memory
 // - free(ptr): Release memory back to system
 //
 // CRITICAL: Every malloc/calloc/realloc MUST have matching free()!

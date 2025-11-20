@@ -10,7 +10,7 @@
 // WHY DO WE NEED POINTERS?
 // 1. To modify variables inside functions (pass by reference)
 // 2. To work with arrays and strings efficiently
-// 3. To allocate memory dynamically (malloc, which we'll see in c12_memory.c)
+// 3. To allocate memory dynamically (malloc, which we'll see in c08_memory.c)
 // 4. To build complex data structures (linked lists, trees, etc.)
 //
 // ANALOGY:
