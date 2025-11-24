@@ -67,6 +67,9 @@ int main() {
     }
     printf("\n");
     
+    // CRITICAL: Must free the array when done!
+    free(numbers);  // Fixes memory leak - returns 20 bytes to system
+    // Without this free(), the 20 bytes would be leaked (never reclaimed)
     // Memory leak = allocated memory never freed = program uses more memory over time
     
     printf("\n===== CALLOC - INITIALIZED TO ZERO =====\n");

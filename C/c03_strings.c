@@ -162,6 +162,59 @@ int main() {
     // Wrong: char str[5] = "Hello";  // No room for '\0'!
     // Right: char str[6] = "Hello";  // Includes space for '\0'
     
+    printf("\n===== GETTING USER INPUT (STRINGS) =====\n");
+    
+    // METHOD 1: scanf - reads until whitespace (space/tab/newline)
+    char firstname[50];
+    printf("Enter your first name: ");
+    scanf("%s", firstname);  // Note: no & needed (array name IS a pointer)
+    printf("Hello, %s!\n", firstname);
+    // Problem: scanf stops at first space, can't read "John Doe"
+    // Danger: No length limit - user can overflow buffer!
+    
+    // METHOD 2: scanf with width limit - safer
+    char username[20];
+    printf("Enter username (max 19 chars): ");
+    scanf("%19s", username);  // Only read up to 19 chars (leave room for '\0')
+    printf("Username: %s\n", username);
+    // Still stops at whitespace, but won't overflow
+    
+    // METHOD 3: fgets - BEST for reading strings (reads full line with spaces)
+    char fullname[100];
+    printf("Enter your full name: ");
+    
+    // INPUT BUFFER EXPLANATION:
+    // When you type "John" and press Enter, what's actually sent is: "John\n"
+    // The input buffer is where this sits waiting to be read
+    // scanf("%s") reads "John" but LEAVES the '\n' in the buffer
+    // Next input function (like fgets) immediately reads that leftover '\n'
+    // Result: fgets gets an empty line before you can type anything!
+    
+    // Clear input buffer from previous scanf
+    // This is a while loop with no body (semicolon ends it immediately)
+    // It keeps calling getchar() and discarding what it reads UNTIL it finds '\n'
+    // When it finds '\n', that newline gets read (and discarded), then loop stops
+    // So it clears everything including the newline itself
+    while (getchar() != '\n');  // Read and discard characters until '\n' (inclusive)
+    fgets(fullname, sizeof(fullname), stdin);
+    // fgets(destination, max_size, input_stream)
+    // Reads up to 99 chars OR until newline (whichever comes first)
+    // Includes the newline in the string!
+    
+    // Remove trailing newline that fgets includes
+    fullname[strcspn(fullname, "\n")] = '\0';  // Find '\n' and replace with '\0'
+    printf("Full name: %s\n", fullname);
+    
+    // fgets pros: reads spaces, prevents overflow, safe
+    // fgets con: includes newline (must remove it)
+    
+    printf("\n===== USER INPUT BEST PRACTICES =====\n");
+    printf("✓ Use fgets for string input (safest)\n");
+    printf("✓ Always specify buffer size\n");
+    printf("✓ Remove trailing newline from fgets\n");
+    printf("✗ Avoid gets() - deprecated, unsafe (no bounds checking)\n");
+    printf("✗ Avoid scanf(\"%%s\") without width limit\n");
+    
     return 0;
 }
 

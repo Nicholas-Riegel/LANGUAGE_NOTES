@@ -7,10 +7,10 @@ int main() {
     // Integer types (whole numbers, no decimals)
     // Different sizes for different ranges:
     
-    int age = 25;              // Standard integer (usually 4 bytes, -2B to +2B range)
     short year = 2024;         // Smaller integer (2 bytes, -32K to +32K range)
-    long population = 8000000000L;  // Larger integer (8 bytes, huge range)
+    int age = 25;              // Standard integer (usually 4 bytes, -2B to +2B range)
     unsigned int positive = 100;    // Only positive (0 to 4B range)
+    long population = 8000000000L;  // Larger integer (8 bytes, huge range)
     
     // Why use short/long?
     // - short: saves memory when you know value is small
@@ -45,12 +45,15 @@ int main() {
     // sizeof() tells you how many bytes a type uses
     // More bytes = larger range of values
     
-    printf("Size of int: %lu bytes\n", sizeof(int));           // Usually 4
-    printf("Size of short: %lu bytes\n", sizeof(short));       // Usually 2
-    printf("Size of long: %lu bytes\n", sizeof(long));         // Usually 8
-    printf("Size of float: %lu bytes\n", sizeof(float));       // Usually 4
-    printf("Size of double: %lu bytes\n", sizeof(double));     // Usually 8
     printf("Size of char: %lu bytes\n", sizeof(char));         // Always 1
+    
+    printf("Size of short: %lu bytes\n", sizeof(short));       // Usually 2
+    
+    printf("Size of int: %lu bytes\n", sizeof(int));           // Usually 4
+    printf("Size of float: %lu bytes\n", sizeof(float));       // Usually 4
+    
+    printf("Size of long: %lu bytes\n", sizeof(long));         // Usually 8
+    printf("Size of double: %lu bytes\n", sizeof(double));     // Usually 8
     
     // Size determines range:
     // char (1 byte):    -128 to 127 (or 0 to 255 unsigned)

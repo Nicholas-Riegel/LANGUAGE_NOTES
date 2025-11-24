@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>  // For malloc, realloc, free
 
 // ARRAYS IN C
 // ===========
 // Collections of elements of the SAME type
-// Fixed size (cannot grow or shrink after creation)
+// Fixed arrays: size known at compile time (cannot grow or shrink)
+// Dynamic arrays: allocated with malloc/realloc (can be resized at runtime)
 // Elements stored in contiguous memory locations
 // Access elements using index (starting at 0)
 
@@ -70,30 +72,6 @@ int main() {
     printf("\n");
     // If array size changes, loop automatically adjusts (if using sizeof trick)
     
-    printf("\n===== MULTIDIMENSIONAL ARRAYS =====\n");
-    
-    // Arrays of arrays - think rows and columns
-    // Syntax: type name[rows][columns]
-    // Useful for: grids, matrices, tables
-    
-    int matrix[2][3] = {
-        {1, 2, 3},  // First row
-        {4, 5, 6}   // Second row
-    };
-    // 2 rows, 3 columns = 6 total elements
-    
-    printf("Element [0][0]: %d\n", matrix[0][0]);  // 1 (first row, first column)
-    printf("Element [1][2]: %d\n", matrix[1][2]);  // 6 (second row, third column)
-    // Access: [row][column], both start at 0
-    
-    printf("Full matrix:\n");
-    for (int i = 0; i < 2; i++) {        // Loop through rows
-        for (int j = 0; j < 3; j++) {    // Loop through columns
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-    
     printf("\n===== ARRAY INITIALIZATION =====\n");
     
     // Partial initialization (rest are 0)
@@ -121,13 +99,135 @@ int main() {
     // small[10] = 99;  // Dangerous! May crash or corrupt memory
     // printf("%d\n", small[10]);  // Undefined behavior
     
+    printf("\n===== DYNAMIC ARRAYS (malloc/realloc) =====\n");
+    
+    // Fixed arrays have compile-time size, but sometimes you need runtime flexibility
+    // Use malloc() to allocate memory on the heap (can be any size)
+    
+    int capacity = 5;
+    int *dynamic = (int*)malloc(capacity * sizeof(int));
+    // malloc(bytes) returns void*, cast to int*
+    // Allocate enough bytes for 5 ints: 5 * 4 = 20 bytes
+    
+    if (dynamic == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+    
+    // Use just like a regular array
+    for (int i = 0; i < capacity; i++) {
+        dynamic[i] = i * 10;
+    }
+    
+    printf("Initial dynamic array: ");
+    for (int i = 0; i < capacity; i++) {
+        printf("%d ", dynamic[i]);  // 0 10 20 30 40
+    }
+    printf("\n");
+    
+    // Need more space? Use realloc() to resize!
+    // realloc(pointer, new_size_in_bytes) copies data to new larger block
+    
+    int newCapacity = 10;  // Double the size
+    dynamic = (int*)realloc(dynamic, newCapacity * sizeof(int));
+    
+    if (dynamic == NULL) {
+        printf("Reallocation failed!\n");
+        return 1;
+    }
+    
+    // Old data preserved, add new data
+    for (int i = capacity; i < newCapacity; i++) {
+        dynamic[i] = i * 10;
+    }
+    
+    printf("Resized dynamic array: ");
+    for (int i = 0; i < newCapacity; i++) {
+        printf("%d ", dynamic[i]);  // 0 10 20 30 40 50 60 70 80 90
+    }
+    printf("\n");
+    
+    // CRITICAL: Always free() dynamic memory when done!
+    free(dynamic);
+    // After free(), dynamic is a dangling pointer - don't use it!
+    
+    printf("\n===== DYNAMIC ARRAY PATTERN =====\n");
+    printf("1. malloc() - allocate initial memory\n");
+    printf("2. Check if NULL (allocation failed)\n");
+    printf("3. Use array normally with []\n");
+    printf("4. realloc() - resize when needed\n");
+    printf("5. Check if NULL again\n");
+    printf("6. free() - release memory when done\n");
+    
+    printf("\n===== BUILDING A VECTOR (Advanced) =====\n");
+    
+    // Let's build a proper vector-like structure with push/pop operations
+    // This is how Python lists, C++ vectors, and Java ArrayLists work internally!
+    
+    typedef struct {
+        int *data;      // Pointer to the actual array
+        int size;       // Number of elements currently in use
+        int capacity;   // Total allocated space
+    } Vector;
+    
+    // Initialize vector with starting capacity
+    Vector vec;
+    vec.size = 0;
+    vec.capacity = 4;  // Start small
+    vec.data = (int*)malloc(vec.capacity * sizeof(int));
+    
+    printf("Initial: size=%d, capacity=%d\n", vec.size, vec.capacity);
+    
+    // Push operation: add element to end (like Python append or C++ push_back)
+    // If full, double the capacity automatically
+    for (int i = 0; i < 10; i++) {
+        if (vec.size >= vec.capacity) {
+            // Out of space - grow the array!
+            vec.capacity *= 2;  // Double capacity
+            vec.data = (int*)realloc(vec.data, vec.capacity * sizeof(int));
+            printf("Resized! New capacity: %d\n", vec.capacity);
+        }
+        vec.data[vec.size++] = i * 10;  // Add element and increment size
+    }
+    
+    printf("After pushing 10 elements: size=%d, capacity=%d\n", vec.size, vec.capacity);
+    printf("Elements: ");
+    for (int i = 0; i < vec.size; i++) {
+        printf("%d ", vec.data[i]);  // 0 10 20 30 40 50 60 70 80 90
+    }
+    printf("\n");
+    
+    // Pop operation: remove and return last element
+    if (vec.size > 0) {
+        int popped = vec.data[--vec.size];  // Decrement size, get element
+        printf("Popped: %d\n", popped);  // 90
+        printf("After pop: size=%d\n", vec.size);
+    }
+    
+    // Access by index (with bounds checking - unlike raw C arrays!)
+    int index = 5;
+    if (index >= 0 && index < vec.size) {
+        printf("Element at index %d: %d\n", index, vec.data[index]);  // 50
+    }
+    
+    // Clean up
+    free(vec.data);
+    
+    printf("\n===== VECTOR PATTERN SUMMARY =====\n");
+    printf("✓ Track size (used) and capacity (allocated) separately\n");
+    printf("✓ Double capacity when full (amortized O(1) push)\n");
+    printf("✓ Realloc copies old data automatically\n");
+    printf("✓ This is exactly what C++ std::vector does!\n");
+    printf("✓ You could wrap this in functions for cleaner code\n");
+    
     return 0;
 }
 
 // Notes:
 // - Arrays are 0-indexed (first element is at index 0)
-// - Array size must be known at compile time (or use dynamic allocation)
+// - Fixed arrays size must be known at compile time
 // - C does NOT check array bounds - be careful!
 // - Use sizeof(array)/sizeof(array[0]) to get array size
-// - Arrays cannot be resized after creation
-// - Multidimensional arrays stored in row-major order
+// - Fixed arrays cannot be resized after creation
+// - Use malloc/realloc for dynamic arrays (runtime sizing and resizing)
+// - Always free() dynamically allocated memory to prevent memory leaks
