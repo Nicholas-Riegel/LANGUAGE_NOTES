@@ -1,0 +1,23 @@
+{
+  "name": "typescript-notes",
+  "version": "1.0.0",
+  "description": "TypeScript learning notes with executable examples",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["typescript", "learning", "notes"],
+  "author": "Nicholas Riegel",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.6",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  }
+}

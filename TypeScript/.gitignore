@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+.DS_Store
+.env
+.vscode/
