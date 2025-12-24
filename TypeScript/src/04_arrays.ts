@@ -4,19 +4,26 @@
  * Arrays can be typed in two ways:
  * 1. Type[] - simpler syntax
  * 2. Array<Type> - generic syntax
+ * 
+ * TypeScript-specific features:
+ * - Type annotations for arrays
+ * - Readonly arrays
+ * - Type inference
+ * - Multi-dimensional array types
+ * - Array of typed objects
  */
 
 // ============================================
-// ARRAY DECLARATION
+// ARRAY TYPE ANNOTATIONS
 // ============================================
 
-// Method 1: Type[]
+// Method 1: Type[] (preferred - more concise)
 const numbers: number[] = [1, 2, 3, 4, 5];
 const names: string[] = ["Alice", "Bob", "Charlie"];
 const flags: boolean[] = [true, false, true];
 
-// Method 2: Array<Type>
-const scores: Array<number> = [95, 87, 92];
+// Method 2: Array<Type> (generic syntax)
+const scores1: Array<number> = [95, 87, 92];
 const cities: Array<string> = ["NYC", "LA", "Chicago"];
 
 console.log("Arrays:");
@@ -24,110 +31,70 @@ console.log(`Numbers: [${numbers.join(', ')}]`);
 console.log(`Names: [${names.join(', ')}]`);
 
 // ============================================
-// READONLY ARRAYS
+// READONLY ARRAYS (TypeScript-only feature)
 // ============================================
 
-// Readonly arrays cannot be modified
+// Readonly arrays cannot be modified - enforced at compile time
 const readonlyNumbers: readonly number[] = [1, 2, 3];
 const readonlyNames: ReadonlyArray<string> = ["Alice", "Bob"];
 
 console.log("\nReadonly arrays:");
 console.log(`Readonly: [${readonlyNumbers.join(', ')}]`);
 
-// These would cause errors:
-// readonlyNumbers.push(4); // Error!
-// readonlyNumbers[0] = 10; // Error!
+// These would cause TypeScript compile errors:
+// readonlyNumbers.push(4); // Error: Property 'push' does not exist on type 'readonly number[]'
+// readonlyNumbers[0] = 10; // Error: Index signature in type 'readonly number[]' only permits reading
+
+// Use readonly when you want to prevent modifications (immutability)
+// Useful for: function parameters, class properties that shouldn't change
 
 // ============================================
 // TYPE INFERENCE
 // ============================================
 
-// TypeScript infers array types
-const inferredNumbers = [1, 2, 3]; // number[]
-const inferredStrings = ["a", "b"]; // string[]
-const mixed = [1, "two", true]; // (string | number | boolean)[]
+// TypeScript automatically infers array types based on initial values
+const inferredNumbers = [1, 2, 3]; // Inferred as number[]
+const inferredStrings = ["a", "b"]; // Inferred as string[]
+const mixed = [1, "two", true]; // Inferred as (string | number | boolean)[]
 
 console.log("\nInferred types:");
 console.log(`Mixed array: [${mixed.join(', ')}]`);
 
-// ============================================
-// ARRAY METHODS
-// ============================================
-
-const fruits: string[] = ["apple", "banana", "orange"];
-
-// Add elements
-fruits.push("grape");
-fruits.unshift("mango"); // Add to beginning
-
-// Remove elements
-const last = fruits.pop(); // Remove from end
-const first = fruits.shift(); // Remove from beginning
-
-console.log("\nArray methods:");
-console.log(`Fruits: [${fruits.join(', ')}]`);
-console.log(`Last: ${last}, First: ${first}`);
+// Empty array inference
+const empty = []; // Inferred as any[] - not type safe!
+const betterEmpty: string[] = []; // Better: explicitly type empty arrays
 
 // ============================================
-// ARRAY OPERATIONS
+// UNION TYPE ARRAYS
 // ============================================
 
-const nums = [1, 2, 3, 4, 5];
+// Arrays can hold multiple types using union types
+const mixedTypes: (string | number)[] = [1, "two", 3, "four"];
+const nullableNumbers: (number | null)[] = [1, 2, null, 4];
 
-// Map: transform each element
-const doubled = nums.map(n => n * 2);
-console.log(`\nDoubled: [${doubled.join(', ')}]`);
+console.log(`\nMixed types: [${mixedTypes.join(', ')}]`);
 
-// Filter: keep elements that pass test
-const evens = nums.filter(n => n % 2 === 0);
-console.log(`Evens: [${evens.join(', ')}]`);
+// Array methods with union types maintain type safety
+mixedTypes.forEach((item) => {
+  if (typeof item === "string") {
+    console.log(`String: ${item.toUpperCase()}`);
+  } else {
+    console.log(`Number: ${item * 2}`);
+  }
+});
 
-// Reduce: accumulate to single value
-const sum = nums.reduce((acc, n) => acc + n, 0);
-console.log(`Sum: ${sum}`);
-
-// Find: get first matching element
-const found = nums.find(n => n > 3);
-console.log(`Found: ${found}`);
-
-// Some: check if any element passes test
-const hasLarge = nums.some(n => n > 3);
-console.log(`Has large: ${hasLarge}`);
-
-// Every: check if all elements pass test
-const allPositive = nums.every(n => n > 0);
-console.log(`All positive: ${allPositive}`);
 
 // ============================================
-// MULTI-DIMENSIONAL ARRAYS
+// ARRAY OF TYPED OBJECTS
 // ============================================
 
-// 2D Array
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
-
-console.log("\n2D Array:");
-console.log(matrix[0]); // [1, 2, 3]
-console.log(`Element [1][1]: ${matrix[1][1]}`); // 5
-
-// 3D Array
-const cube: number[][][] = [
-  [[1, 2], [3, 4]],
-  [[5, 6], [7, 8]]
-];
-
-// ============================================
-// ARRAY OF OBJECTS
-// ============================================
-
+// Interface defines the shape of objects in the array
 interface Person {
   name: string;
   age: number;
 }
 
+// TypeScript ensures all objects match the interface
 const people: Person[] = [
   { name: "Alice", age: 25 },
   { name: "Bob", age: 30 },
@@ -139,140 +106,9 @@ people.forEach(person => {
   console.log(`${person.name} is ${person.age} years old`);
 });
 
-// Find person by name
-const alice = people.find(p => p.name === "Alice");
-console.log(`Found: ${alice?.name}`);
+// TypeScript provides autocomplete and type checking for array methods
+const alice = people.find(p => p.name === "Alice"); // Type: Person | undefined
+console.log(`Found: ${alice?.name}`); // Optional chaining since find might return undefined
 
-// Filter by age
-const adults = people.filter(p => p.age >= 30);
+const adults = people.filter(p => p.age >= 30); // Type: Person[]
 console.log(`Adults: ${adults.map(p => p.name).join(', ')}`);
-
-// ============================================
-// ARRAY DESTRUCTURING
-// ============================================
-
-const colors = ["red", "green", "blue"];
-
-// Destructure array
-const [primary, secondary, tertiary] = colors;
-console.log(`\nDestructuring:`);
-console.log(`Primary: ${primary}`);
-
-// Skip elements
-const [, , third] = colors;
-console.log(`Third: ${third}`);
-
-// Rest operator
-const [head, ...tail] = colors;
-console.log(`Head: ${head}, Tail: [${tail.join(', ')}]`);
-
-// ============================================
-// SPREAD OPERATOR
-// ============================================
-
-const arr1 = [1, 2, 3];
-const arr2 = [4, 5, 6];
-
-// Combine arrays
-const combined = [...arr1, ...arr2];
-console.log(`\nCombined: [${combined.join(', ')}]`);
-
-// Copy array
-const copy = [...arr1];
-console.log(`Copy: [${copy.join(', ')}]`);
-
-// Add elements
-const extended = [...arr1, 7, 8, 9];
-console.log(`Extended: [${extended.join(', ')}]`);
-
-// ============================================
-// ARRAY SORTING
-// ============================================
-
-const unsorted = [3, 1, 4, 1, 5, 9, 2, 6];
-
-// Sort numbers (ascending)
-const sorted = [...unsorted].sort((a, b) => a - b);
-console.log(`\nSorted: [${sorted.join(', ')}]`);
-
-// Sort strings
-const words = ["banana", "apple", "cherry"];
-const sortedWords = [...words].sort();
-console.log(`Sorted words: [${sortedWords.join(', ')}]`);
-
-// Sort objects
-const products = [
-  { name: "Laptop", price: 999 },
-  { name: "Phone", price: 699 },
-  { name: "Tablet", price: 499 }
-];
-
-const byPrice = [...products].sort((a, b) => a.price - b.price);
-console.log("\nSorted by price:");
-byPrice.forEach(p => console.log(`${p.name}: $${p.price}`));
-
-// ============================================
-// ARRAY UTILITIES
-// ============================================
-
-// Check if array
-console.log(`\nIs array: ${Array.isArray(numbers)}`);
-console.log(`Is array: ${Array.isArray("not array")}`);
-
-// Array length
-console.log(`Length: ${numbers.length}`);
-
-// Index access
-console.log(`First: ${numbers[0]}`);
-console.log(`Last: ${numbers[numbers.length - 1]}`);
-
-// Includes
-console.log(`Includes 3: ${numbers.includes(3)}`);
-console.log(`Includes 10: ${numbers.includes(10)}`);
-
-// IndexOf
-console.log(`Index of 3: ${numbers.indexOf(3)}`);
-console.log(`Index of 10: ${numbers.indexOf(10)}`); // -1
-
-// Join
-console.log(`Joined: ${numbers.join(' - ')}`);
-
-// Slice (doesn't modify original)
-const sliced = numbers.slice(1, 3);
-console.log(`Sliced [1:3]: [${sliced.join(', ')}]`);
-
-// Splice (modifies original)
-const toSplice = [1, 2, 3, 4, 5];
-const removed = toSplice.splice(2, 2); // Remove 2 elements starting at index 2
-console.log(`After splice: [${toSplice.join(', ')}]`);
-console.log(`Removed: [${removed.join(', ')}]`);
-
-// ============================================
-// EXPORTED FUNCTIONS FOR TESTING
-// ============================================
-
-export function sumArray(arr: number[]): number {
-  return arr.reduce((sum, n) => sum + n, 0);
-}
-
-export function filterEvens(arr: number[]): number[] {
-  return arr.filter(n => n % 2 === 0);
-}
-
-export function doubleArray(arr: number[]): number[] {
-  return arr.map(n => n * 2);
-}
-
-export function findMax(arr: number[]): number {
-  return Math.max(...arr);
-}
-
-export function removeDuplicates<T>(arr: T[]): T[] {
-  return [...new Set(arr)];
-}
-
-export function sortAscending(arr: number[]): number[] {
-  return [...arr].sort((a, b) => a - b);
-}
-
-export { people, matrix };

@@ -78,10 +78,46 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }
 
-const user = { id: 1, name: "Alice", age: 30 };
-console.log(`\nProperty: ${getProperty(user, "name")}`);
-console.log(`Property: ${getProperty(user, "age")}`);
-// getProperty(user, "invalid"); // Error: not a key
+const user5 = { id: 1, name: "Alice", age: 30 };
+console.log(`\nProperty: ${getProperty(user5, "name")}`);
+console.log(`Property: ${getProperty(user5, "age")}`);
+// getProperty(user5, "invalid"); // Error: not a key
+
+/**
+ * WHEN TO USE 'extends' WITH GENERICS:
+ * 
+ * 'extends' creates a CONSTRAINT - it means "must be compatible with" or 
+ * "must have at least these properties/be assignable to this type"
+ * 
+ * Two main uses:
+ * 
+ * 1. WITH INTERFACES/OBJECTS: T extends Interface
+ *    - T must have AT LEAST the properties in Interface (can have more)
+ *    - Lets you safely access those properties
+ *    - Example: T extends Lengthwise means T has .length (and maybe other stuff)
+ * 
+ * 2. WITH UNIONS: T extends string | number
+ *    - T must be EXACTLY one of those types (no extra properties matter)
+ *    - More restrictive - limits to specific types only
+ *    - Example: T extends string | number means only strings3 or numbers5 allowed
+ * 
+ * WITHOUT extends: T can be ANY type at all
+ */
+
+// Constraint with union types - EXACT type match required
+function createLoggedPair<S extends string | number, T extends string | number>(
+  v1: S, 
+  v2: T
+): [S, T] {
+  console.log(`creating pair: v1='${v1}', v2='${v2}'`);
+  return [v1, v2];
+}
+
+const pair1 = createLoggedPair("hello", 42);
+const pair2 = createLoggedPair(10, 20);
+console.log(`\nLogged pair: [${pair1[0]}, ${pair1[1]}]`);
+// createLoggedPair(true, "test"); // Error: boolean not in union
+// createLoggedPair({}, []); // Error: object not in union
 
 // ============================================
 // MULTIPLE TYPE PARAMETERS
@@ -101,12 +137,12 @@ function map<T, U>(arr: T[], fn: (item: T) => U): U[] {
   return arr.map(fn);
 }
 
-const numbers = [1, 2, 3];
-const doubled = map(numbers, n => n * 2);
-const strings = map(numbers, n => `Number: ${n}`);
+const numbers5 = [1, 2, 3];
+const doubled5 = map(numbers5, n => n * 2);
+const strings3 = map(numbers5, n => `Number: ${n}`);
 
-console.log(`Mapped: ${doubled.join(", ")}`);
-console.log(`Mapped: ${strings.join(", ")}`);
+console.log(`Mapped: ${doubled5.join(", ")}`);
+console.log(`Mapped: ${strings3.join(", ")}`);
 
 // ============================================
 // GENERIC CLASSES
@@ -165,18 +201,22 @@ interface ApiResponse<T = any> {
   message?: string;
 }
 
-const response1: ApiResponse<{ id: number; name: string }> = {
+const response11: ApiResponse<{ id: number; name: string }> = {
   data: { id: 1, name: "Alice" },
-  status: 200
+  status: 200,
+  success: false,
+  timestamp: new Date()
 };
 
-const response2: ApiResponse = {
+const response22: ApiResponse = {
   data: "anything",
-  status: 200
+  status: 200,
+  success: false,
+  timestamp: new Date()
 };
 
-console.log(`\nResponse: ${response1.data.name}`);
-console.log(`Response status: ${response2.status}`);
+console.log(`\nResponse: ${response11.data.name}`);
+console.log(`Response status: ${response22.status}`);
 
 // ============================================
 // GENERIC TYPE ALIASES
@@ -186,15 +226,15 @@ type Result<T, E = Error> =
   | { success: true; value: T }
   | { success: false; error: E };
 
-function divide(a: number, b: number): Result<number, string> {
+function divide2(a: number, b: number): Result<number, string> {
   if (b === 0) {
     return { success: false, error: "Division by zero" };
   }
   return { success: true, value: a / b };
 }
 
-const result1 = divide(10, 2);
-const result2 = divide(10, 0);
+const result1 = divide2(10, 2);
+const result2 = divide2(10, 0);
 
 if (result1.success) {
   console.log(`\nDivision: ${result1.value}`);
@@ -227,11 +267,11 @@ function reduce<T, U>(
 const nums = [1, 2, 3, 4, 5];
 const evens = filter(nums, n => n % 2 === 0);
 const firstEven = find(nums, n => n % 2 === 0);
-const sum = reduce(nums, (acc, n) => acc + n, 0);
+const sum1 = reduce(nums, (acc, n) => acc + n, 0);
 
 console.log(`\nEvens: ${evens.join(", ")}`);
 console.log(`First even: ${firstEven}`);
-console.log(`Sum: ${sum}`);
+console.log(`Sum: ${sum1}`);
 
 // ============================================
 // GENERIC PROMISE UTILITIES
@@ -282,11 +322,11 @@ console.log(`\nUnwrapped: ${unwrap(42)}`);
 // MAPPED TYPES WITH GENERICS
 // ============================================
 
-type Readonly<T> = {
+type Readonly2<T> = {
   readonly [P in keyof T]: T[P];
 };
 
-type Partial<T> = {
+type Partial2<T> = {
   [P in keyof T]?: T[P];
 };
 
@@ -300,7 +340,7 @@ interface Todo {
   completed: boolean;
 }
 
-const readonlyTodo: Readonly<Todo> = {
+const readonlyTodo: Readonly2<Todo> = {
   title: "Learn TypeScript",
   description: "Study generics",
   completed: false
@@ -308,13 +348,13 @@ const readonlyTodo: Readonly<Todo> = {
 
 // readonlyTodo.completed = true; // Error: readonly
 
-const partialTodo: Partial<Todo> = {
-  title: "Partial todo"
+const partialTodo: Partial2<Todo> = {
+  title: "Partial2 todo"
   // Other fields optional
 };
 
 console.log(`Todo: ${readonlyTodo.title}`);
-console.log(`Partial: ${partialTodo.title}`);
+console.log(`Partial2: ${partialTodo.title}`);
 
 // ============================================
 // GENERIC FACTORY PATTERN
@@ -395,7 +435,7 @@ interface Repository<T extends Entity> {
   findById(id: T["id"]): Promise<T | null>;
   findAll(): Promise<T[]>;
   create(entity: Omit<T, "id">): Promise<T>;
-  update(id: T["id"], entity: Partial<T>): Promise<T>;
+  update(id: T["id"], entity: Partial2<T>): Promise<T>;
   delete(id: T["id"]): Promise<boolean>;
 }
 
@@ -418,7 +458,7 @@ class InMemoryRepository<T extends Entity> implements Repository<T> {
     return newEntity;
   }
 
-  async update(id: T["id"], entity: Partial<T>): Promise<T> {
+  async update(id: T["id"], entity: Partial2<T>): Promise<T> {
     const existing = this.items.get(id);
     if (!existing) throw new Error("Not found");
     const updated = { ...existing, ...entity };
@@ -439,12 +479,12 @@ interface UserEntity extends Entity {
 const userRepo = new InMemoryRepository<UserEntity>();
 
 async function testRepo(): Promise<void> {
-  const user = await userRepo.create({ username: "bob", email: "bob@example.com" });
-  console.log(`\nCreated user: ${user.username} (${user.id})`);
+  const user5 = await userRepo.create({ username: "bob", email: "bob@example.com" });
+  console.log(`\nCreated user5: ${user5.username} (${user5.id})`);
   
-  const found = await userRepo.findById(user.id);
+  const found = await userRepo.findById(user5.id);
   if (found) {
-    console.log(`Found user: ${found.username}`);
+    console.log(`Found user5: ${found.username}`);
   }
 }
 
@@ -470,10 +510,3 @@ testRepo();
 //   set(value: T): void;
 // }
 
-// ============================================
-// EXPORTED TYPES
-// ============================================
-
-export { Box, Stack, EventEmitter, InMemoryRepository, Factory };
-export type { Container, Result, Repository, Entity, UserEntity };
-export { identity, firstElement, map, filter, find, reduce };

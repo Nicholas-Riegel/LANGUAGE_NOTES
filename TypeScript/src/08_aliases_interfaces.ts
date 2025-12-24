@@ -155,46 +155,103 @@ handleStatus("success");
 processId(123);
 
 // ============================================
-// INTERFACES VS TYPE ALIASES
+// INTERFACE vs TYPE ALIAS - KEY DIFFERENCES
 // ============================================
 
-// ✅ Interface: Can be extended
+// They look similar for objects, but have important differences:
+
+// 1. INTERFACES CAN BE EXTENDED (inheritance)
 interface Animal {
   name: string;
 }
-
 interface Dog extends Animal {
   breed: string;
 }
 
-// ✅ Type: Can use unions
-type Cat = {
+// TYPE ALIASES USE INTERSECTION (&) instead
+type Animal2 = {
   name: string;
-  indoor: boolean;
+};
+type Dog2 = Animal2 & {
+  breed: string;
 };
 
-type Pet = Dog | Cat;
+const myDog: Dog = { name: "Buddy", breed: "Golden Retriever" };
+const myDog2: Dog2 = { name: "Max", breed: "Labrador" };
+console.log(`\nDogs: ${myDog.name}, ${myDog2.name}`);
 
-const myPet: Pet = { name: "Fluffy", indoor: true };
-console.log(`\nPet: ${myPet.name}`);
-
-// ✅ Interface: Can be reopened (declaration merging)
+// 2. DECLARATION MERGING - Interfaces can be defined multiple times
+// TypeScript automatically merges them into one
 interface Window {
   title: string;
 }
-
 interface Window {
   size: number;
 }
+// Result: Window has both title AND size
+// Useful for extending third-party types
 
-// Now Window has both title and size
 const myWindow: Window = { title: "Main", size: 100 };
 console.log(`Window: ${myWindow.title}`);
 
-// ✅ Type: Can alias primitives
-type StringOrNumber = string | number;
-const value: StringOrNumber = "test";
+// TYPE ALIASES CANNOT BE MERGED - this would error:
+// type Window2 = { title: string };
+// type Window2 = { size: number }; // Error: Duplicate identifier
+
+// 3. TYPE ALIASES CAN DO MORE - not just objects
+type ID2 = string | number;                    // Union types
+type Status2 = "active" | "inactive";          // Literal types
+type Point2 = [number, number];                // Tuple types
+type Callback2 = (data: string) => void;       // Function types
+type MaybeString = string | null;              // Nullable types
+
+const value: ID2 = "test";
 console.log(`Value: ${value}`);
+
+// INTERFACES ARE OBJECT-ONLY - these would error:
+// interface ID2 = string | number; // Error!
+// interface Status2 = "active" | "inactive"; // Error!
+
+// 4. INTERSECTION TYPES - Type aliases can create complex combinations
+type HasName = { name: string };
+type HasAge = { age: number };
+type PersonWithAge = HasName & HasAge;  // Combines both
+
+// Interfaces use extends for similar behavior
+interface HasName2 { name: string; }
+interface HasAge2 { age: number; }
+interface PersonWithAge2 extends HasName2, HasAge2 {}  // Can extend multiple
+
+const person: PersonWithAge = { name: "Alice", age: 30 };
+console.log(`Person: ${person.name}`);
+
+// ============================================
+// PRACTICAL DECISION GUIDE
+// ============================================
+
+// Use INTERFACE when:
+// ✓ Defining object shapes (most common)
+// ✓ Working with classes (class implements MyInterface)
+// ✓ Building public APIs (declaration merging is useful)
+// ✓ Creating extensible hierarchies
+// Example: interface User { id: number; name: string; }
+
+// Use TYPE ALIAS when:
+// ✓ Creating union types: type Result = Success | Error
+// ✓ Creating intersection types: type Admin = User & Permissions
+// ✓ Aliasing primitives or literals: type Status = "active" | "inactive"
+// ✓ Defining function types: type Handler = (event: Event) => void
+// ✓ Creating tuple types: type Coordinates = [number, number]
+// ✓ Using mapped/conditional types (advanced)
+// Example: type UserID = string | number
+
+// RULE OF THUMB:
+// - For object shapes → Use interface (by convention)
+// - For everything else → Use type
+// - For simple objects → Either works, choose one style and stick to it!
+
+// PERFORMANCE NOTE: No runtime difference - both compile away
+// The differences are only at compile-time for type checking
 
 // ============================================
 // OPTIONAL PROPERTIES

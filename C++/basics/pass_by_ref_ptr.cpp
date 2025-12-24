@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// w3schools example        
+
 // Pass by value: makes a copy
 void changeValueByValue(int num) {
     num = 50; // only changes the local copy
@@ -16,12 +18,11 @@ void changeValueByPointer(int* num) {
     *num = 50; // dereference pointer to change the original
 }
 
-// w3schools example        
-
+// x = 10; y = 20
 void swapNums(int& x, int& y){ // creating references (not copies) of the variables passed
-    int z = x; // creating a local copy of the value
-    x = y; // assigning the value of y to x
-    y = z; // assigning the value of z (x) to y
+    int z = x; // z = 10
+    x = y; // x = 20
+    y = z; // y = 10
 }
 
 int main() {
@@ -34,11 +35,11 @@ int main() {
     cout << "After changeValueByValue(x): " << x << " (unchanged)" << endl;
 
     changeValueByReference(x);
-    cout << "After changeValueByReference(x): " << x << " (changed)" << endl;
+    cout << "After changeValueByReference(x): " << x << " (=50 changed)" << endl;
 
     x = 10; // reset x
     changeValueByPointer(&x); // pass address of x
-    cout << "After changeValueByPointer(&x): " << x << " (changed)" << endl;
+    cout << "After changeValueByPointer(&x): " << x << " (=50 changed)" << endl;
 
     // w3schools example        
 
@@ -46,13 +47,13 @@ int main() {
     int secondNum = 20;
 
     cout << "Before swap: " << "\n";
-    cout << firstNum << secondNum << "\n";
+    cout << firstNum << " " << secondNum << "\n";
 
     // Call the function, which will change the values of firstNum and secondNum
     swapNums(firstNum, secondNum);
 
     cout << "After swap: " << "\n";
-    cout << firstNum << secondNum << "\n";
+    cout << firstNum << " " << secondNum << "\n";
 
     return 0;
 }

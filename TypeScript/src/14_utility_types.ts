@@ -9,7 +9,13 @@
 // PARTIAL<T>
 // ============================================
 
-// Makes all properties optional
+/**
+ * Partial<T> makes ALL properties optional
+ * 
+ * Useful for update functions where you only want to change some fields
+ * Without Partial, you'd have to pass ALL properties even if unchanged
+ */
+
 interface User {
   id: number;
   name: string;
@@ -30,7 +36,12 @@ console.log(`Updated user: ${updated.name}, age ${updated.age}`);
 // REQUIRED<T>
 // ============================================
 
-// Makes all properties required
+/**
+ * Required<T> makes ALL properties required (removes ? optional markers)
+ * 
+ * Opposite of Partial - forces every property to be present
+ */
+
 interface PartialUser {
   id?: number;
   name?: string;
@@ -52,7 +63,13 @@ console.log(`\nComplete user: ${complete.name}`);
 // READONLY<T>
 // ============================================
 
-// Makes all properties readonly
+/**
+ * Readonly<T> makes ALL properties read-only (can't be reassigned)
+ * 
+ * Useful for immutable data structures or configuration objects
+ * Properties can be read but not modified after creation
+ */
+
 interface Config {
   host: string;
   port: number;
@@ -73,10 +90,21 @@ console.log(`Config: ${config.host}:${config.port}`);
 // RECORD<K, T>
 // ============================================
 
-// Creates object type with keys K and values T
+/**
+ * Record<K, T> exists purely to avoid writing { [K in ...]: T }
+ * 
+ * That's it. Just a shorthand to save typing.
+ */
+
 type Role = "admin" | "user" | "guest";
 
-const permissions: Record<Role, string[]> = {
+// These are IDENTICAL:
+type Permissions1 = Record<Role, string[]>;
+type Permissions2 = { [K in Role]: string[] };
+
+// Both create: { admin: string[]; user: string[]; guest: string[]; }
+
+const permissions: Permissions1 = {
   admin: ["read", "write", "delete"],
   user: ["read", "write"],
   guest: ["read"]
@@ -84,10 +112,11 @@ const permissions: Record<Role, string[]> = {
 
 console.log(`\nAdmin permissions: ${permissions.admin.join(", ")}`);
 
-// String keys
-type PageInfo = Record<string, { title: string; views: number }>;
+// With string keys - also IDENTICAL:
+type PageInfo1 = Record<string, { title: string; views: number }>;
+type PageInfo2 = { [key: string]: { title: string; views: number } };
 
-const pages: PageInfo = {
+const pages: PageInfo1 = {
   home: { title: "Home", views: 1000 },
   about: { title: "About", views: 500 }
 };
@@ -98,7 +127,13 @@ console.log(`Page: ${pages.home.title}`);
 // PICK<T, K>
 // ============================================
 
-// Creates type by picking properties K from T
+/**
+ * Pick<T, K> creates a NEW type with ONLY the properties you specify
+ * 
+ * Like saying: "I want just these fields from this type"
+ * Everything else is excluded
+ */
+
 interface Product {
   id: number;
   name: string;
@@ -121,7 +156,13 @@ console.log(`\nProduct preview: ${preview.name} - $${preview.price}`);
 // OMIT<T, K>
 // ============================================
 
-// Creates type by removing properties K from T
+/**
+ * Omit<T, K> creates a NEW type with the specified properties REMOVED
+ * 
+ * Opposite of Pick - everything EXCEPT what you list
+ * Like saying: "Give me everything but these fields"
+ */
+
 type ProductWithoutStock = Omit<Product, "stock">;
 
 const product: ProductWithoutStock = {
@@ -140,7 +181,13 @@ type ProductSummary = Omit<Product, "description" | "stock">;
 // EXCLUDE<T, U>
 // ============================================
 
-// Excludes from T types that are assignable to U
+/**
+ * Exclude<T, U> removes types from a UNION
+ * 
+ * Works on union types (|), not object properties
+ * Removes any type that matches U from the union T
+ */
+
 type AllTypes = "create" | "read" | "update" | "delete" | "admin";
 type UserActions = Exclude<AllTypes, "admin">;
 // "create" | "read" | "update" | "delete"
@@ -156,7 +203,13 @@ console.log(`\nAction: ${action}`);
 // EXTRACT<T, U>
 // ============================================
 
-// Extracts from T types that are assignable to U
+/**
+ * Extract<T, U> keeps ONLY types from a union that match U
+ * 
+ * Opposite of Exclude - filters a union to keep only matching types
+ * Like using .filter() but for type unions
+ */
+
 type AllValues = "a" | "b" | "c" | 1 | 2 | 3;
 type OnlyStrings = Extract<AllValues, string>;
 // "a" | "b" | "c"
@@ -168,7 +221,13 @@ console.log(`Extracted: ${extracted}`);
 // NONNULLABLE<T>
 // ============================================
 
-// Removes null and undefined from T
+/**
+ * NonNullable<T> removes null and undefined from a type
+ * 
+ * Ensures the value cannot be null or undefined
+ * Useful after null checks or with strict null checking
+ */
+
 type MaybeString = string | null | undefined;
 type DefiniteString = NonNullable<MaybeString>;
 // string
@@ -180,7 +239,13 @@ console.log(`\nNonNullable: ${str}`);
 // RETURNTYPE<T>
 // ============================================
 
-// Gets return type of function T
+/**
+ * ReturnType<T> extracts what a function RETURNS
+ * 
+ * T must be a function type (use typeof for actual functions)
+ * Gives you the return type without calling the function
+ */
+
 function getUser() {
   return { id: 1, name: "Alice", email: "alice@example.com" };
 }
@@ -202,7 +267,13 @@ console.log(`Return type: ${userReturn.name}`);
 // PARAMETERS<T>
 // ============================================
 
-// Gets parameter types of function T as tuple
+/**
+ * Parameters<T> extracts function parameter types as a TUPLE
+ * 
+ * Returns an array type [param1Type, param2Type, ...]
+ * Useful for creating wrapper functions or forwarding arguments
+ */
+
 function greet(name: string, age: number): string {
   return `Hello ${name}, ${age}`;
 }
@@ -217,7 +288,13 @@ console.log(`\nParams: ${greet(...params)}`);
 // CONSTRUCTORPARAMETERS<T>
 // ============================================
 
-// Gets parameter types of constructor
+/**
+ * ConstructorParameters<T> extracts constructor parameter types as a TUPLE
+ * 
+ * Like Parameters but for class constructors
+ * Tells you what arguments you need to call `new T(...)`
+ */
+
 class Person {
   constructor(public name: string, public age: number) {}
 }
@@ -233,17 +310,32 @@ console.log(`Person: ${person.name}`);
 // INSTANCETYPE<T>
 // ============================================
 
-// Gets instance type of constructor
+/**
+ * InstanceType<T> extracts the type of what you GET when you call `new T()`
+ * 
+ * Problem: typeof Database gives you the CLASS itself (the constructor)
+ * Solution: InstanceType<typeof Database> gives you the INSTANCE type
+ * 
+ * Think of it as: "What type is the thing created by this class?"
+ */
+
 class Database {
   connect(): void {
     console.log("Connected");
   }
 }
 
+// typeof Database = the class constructor
+// InstanceType<typeof Database> = the instance (what you get from `new Database()`)
+
 type DbInstance = InstanceType<typeof Database>;
+// DbInstance = { connect(): void }
 
 const db: DbInstance = new Database();
 db.connect();
+
+// Why use this? When you want to reference the instance type without creating one
+// Useful in factory functions, type guards, or when working with class references
 
 // ============================================
 // AWAITED<T>

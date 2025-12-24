@@ -10,30 +10,30 @@
 // ============================================
 
 // Define a tuple
-let person: [string, number];
-person = ["Alice", 25];
+let person1: [string, number];
+person1 = ["Alice", 25];
 
 console.log("Basic tuple:");
-console.log(`Name: ${person[0]}, Age: ${person[1]}`);
+console.log(`Name: ${person1[0]}, Age: ${person1[1]}`);
 
 // Access by index
-const name = person[0]; // string
-const age = person[1]; // number
+const name1 = person1[0]; // string
+const age = person1[1]; // number
 
 // This would cause an error:
-// person = [25, "Alice"]; // Error: wrong order
-// person = ["Alice", "25"]; // Error: wrong type
+// person1 = [25, "Alice"]; // Error: wrong order
+// person1 = ["Alice", "25"]; // Error: wrong type
 
 // ============================================
 // TUPLE WITH DIFFERENT TYPES
 // ============================================
 
 // Multiple different types
-let user: [number, string, boolean];
-user = [1, "John", true];
+let user2: [number, string, boolean];
+user2 = [1, "John", true];
 
 console.log("\nTuple with multiple types:");
-console.log(`ID: ${user[0]}, Name: ${user[1]}, Active: ${user[2]}`);
+console.log(`ID: ${user2[0]}, Name: ${user2[1]}, Active: ${user2[2]}`);
 
 // ============================================
 // READONLY TUPLES
@@ -54,14 +54,14 @@ console.log(`\nReadonly tuple: ${readonlyTuple[0]}, ${readonlyTuple[1]}`);
 
 // TypeScript 4.0+ allows named tuple elements for better readability
 type Point = [x: number, y: number];
-type Range = [min: number, max: number];
+type Range1 = [min: number, max: number];
 
 const point: Point = [10, 20];
-const range: Range = [0, 100];
+const range1: Range1 = [0, 100];
 
 console.log("\nNamed tuples:");
 console.log(`Point: (${point[0]}, ${point[1]})`);
-console.log(`Range: ${range[0]} to ${range[1]}`);
+console.log(`Range: ${range1[0]} to ${range1[1]}`);
 
 // ============================================
 // OPTIONAL TUPLE ELEMENTS
@@ -136,20 +136,20 @@ console.log(`Green: rgb(${green.join(', ')})`);
 console.log(`Blue: rgb(${blue.join(', ')})`);
 
 // Database record
-type DBRecord = [id: number, name: string, createdAt: Date];
+type DBRecord1 = [id: number, name: string, createdAt: Date];
 
-const record: DBRecord = [1, "User", new Date()];
+const record: DBRecord1 = [1, "User", new Date()];
 console.log(`\nDB Record: ID=${record[0]}, Name=${record[1]}`);
 
 // Key-value pair
 type KeyValue = [string, any];
 
 const setting: KeyValue = ["theme", "dark"];
-const config: KeyValue = ["maxItems", 100];
+const config1: KeyValue = ["maxItems", 100];
 
 console.log("\nKey-Value pairs:");
 console.log(`${setting[0]}: ${setting[1]}`);
-console.log(`${config[0]}: ${config[1]}`);
+console.log(`${config1[0]}: ${config1[1]}`);
 
 // ============================================
 // TUPLE METHODS
@@ -176,8 +176,8 @@ function getUser(): [string, number, boolean] {
   return ["Alice", 25, true];
 }
 
-const [userName, userAge, userActive] = getUser();
-console.log(`\nUser: ${userName}, ${userAge}, active: ${userActive}`);
+const [userName1, userAge, userActive] = getUser();
+console.log(`\nUser: ${userName1}, ${userAge}, active: ${userActive}`);
 
 // Function with tuple parameter
 function displayCoordinates([x, y]: [number, number]): void {
@@ -247,26 +247,3 @@ console.log("\nRGB Validation:");
 console.log(`[255, 0, 0] is valid: ${isValidRGB(testColor1)}`);
 console.log(`[256, 0, 0] is valid: ${isValidRGB(testColor2)}`);
 
-// ============================================
-// EXPORTED FUNCTIONS FOR TESTING
-// ============================================
-
-export function createPerson(name: string, age: number): [string, number] {
-  return [name, age];
-}
-
-export function getCoordinates(): [number, number] {
-  return [10, 20];
-}
-
-export function parseKeyValue(str: string): [string, string] {
-  const [key, value] = str.split('=');
-  return [key, value];
-}
-
-export function minMax(numbers: number[]): [number, number] {
-  return [Math.min(...numbers), Math.max(...numbers)];
-}
-
-export { swap, isValidRGB };
-export type { RGB, Point, Range };
