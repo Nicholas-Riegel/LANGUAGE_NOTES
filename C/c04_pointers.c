@@ -225,8 +225,8 @@ int main() {
     int *numPtr1 = numbers;        // Array name is a pointer
     int *numPtr2 = &numbers[0];    // Explicitly get address of first element
     
-    printf("numbers points to: %p\n", numbers);
-    printf("&numbers[0] is: %p\n", &numbers[0]);
+    printf("numbers points to: %p\n", numbers); // 0x16db82d70
+    printf("&numbers[0] is: %p\n", &numbers[0]); // 0x16db82d70
     printf("These are the SAME!\n");
     
     // Accessing array elements with pointers
@@ -314,11 +314,12 @@ int main() {
     printf("   Always check: if (ptr != NULL) before using *ptr\n");
     
     printf("\n3. DANGLING POINTER (pointer to deleted/out-of-scope memory):\n");
-    // int *dangPtr;
+    // int global = 10;
+    // int *dangPtr = &global;  // Start with valid pointer
     // {
     //     int temp = 42;
-    //     dangPtr = &temp;
-    // }  // temp is destroyed here
+    //     dangPtr = &temp;     // Now points to local variable
+    // }  // temp is destroyed here, dangPtr now points to invalid memory
     // printf("%d", *dangPtr);  // CRASH! temp doesn't exist anymore
     printf("   Only point to variables that still exist!\n");
     
@@ -464,12 +465,12 @@ int main() {
 // -------------------
 // 1. Functions can modify caller's variables (pass by reference)
 // 2. Efficient array/string manipulation
-// 3. Dynamic memory allocation (malloc/free in c12_memory.c)
+// 3. Dynamic memory allocation (malloc/free in c05_memory.c)
 // 4. Data structures (linked lists, trees, graphs)
 //
 // NEXT STEPS:
 // ----------
-// - See c10_structs.c for pointers to structures
-// - See c12_memory.c for dynamic memory (malloc/free)
+// - See c05_memory.c for dynamic memory (malloc/free)
+// - See c07_structs.c for pointers to structures
 // - Practice with functions that take pointer parameters
 //

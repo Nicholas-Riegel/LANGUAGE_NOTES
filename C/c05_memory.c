@@ -29,7 +29,9 @@ int main() {
     // Returns pointer to allocated memory, or NULL if allocation fails
     int *ptr = (int*)malloc(sizeof(int));
     // malloc(sizeof(int)) = allocate 4 bytes (size of one int)
-    // (int*) = cast void* to int* for type safety
+    // (int*) = TYPE CAST - converts malloc's return type
+    // malloc returns void*, we need int*
+    // (int*) tells compiler "treat this as an int pointer"
     
     if (ptr == NULL) {
         // ALWAYS check if malloc succeeded!
@@ -76,6 +78,7 @@ int main() {
     
     // calloc = "contiguous allocation"
     // Difference from malloc: automatically initializes all bytes to 0
+    // malloc would have garbage values until you initialize them
     // Syntax: calloc(number_of_elements, size_of_each_element)
     int *zeros = (int*)calloc(5, sizeof(int));
     // Same as malloc(5 * sizeof(int)) but zeros everything out
@@ -90,7 +93,6 @@ int main() {
         printf("%d ", zeros[i]);  // 0 0 0 0 0 (guaranteed!)
     }
     printf("\n");
-    // malloc would have garbage values until you initialize them
     
     free(zeros);
     
