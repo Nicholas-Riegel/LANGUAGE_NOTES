@@ -217,12 +217,12 @@ int main() {
     printf("\n===== STEP 7: POINTERS AND ARRAYS =====\n");
     
     // Here's a mind-blowing fact: An array name IS a pointer!
-    // The array name points to the first element
+    // The array name points to the address of the first element
     
     int numbers[] = {10, 20, 30, 40, 50};
     
     // These two are IDENTICAL:
-    int *numPtr1 = numbers;        // Array name is a pointer
+    int *numPtr1 = numbers;        // Array name points to the address of the first element
     int *numPtr2 = &numbers[0];    // Explicitly get address of first element
     
     printf("numbers points to: %p\n", numbers); // 0x16db82d70
@@ -231,6 +231,7 @@ int main() {
     
     // Accessing array elements with pointers
     printf("\nFirst element (*numPtr1): %d\n", *numPtr1);  // 10
+    printf("\nFirst element (*numbers): %d\n", *numbers);  // 10
     
     // What about the second element?
     // We need POINTER ARITHMETIC for that...

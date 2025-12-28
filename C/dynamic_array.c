@@ -60,8 +60,8 @@ int main(){
     int size = 0;
     int *arr1 = (int*)malloc(size * sizeof(int));
     
-    unshift_front(&arr1, &size, 1);
     push_back(&arr1, &size, 2);
+    unshift_front(&arr1, &size, 1);
     push_back(&arr1, &size, 3);
     push_back(&arr1, &size, 4);
 
