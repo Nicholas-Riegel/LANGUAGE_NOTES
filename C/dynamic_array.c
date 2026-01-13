@@ -47,7 +47,6 @@ void unshift_front(int** arr, int* size, int val){
 
 void print_array(int **arr, int *size) {
     printf("[");
-
     for(int i = 0; i < *size; i++) {
         printf("%d", (*arr)[i]);
         if(i < *size - 1) printf(", ");
