@@ -40,9 +40,9 @@ class Person:
     def __init__(self, name):
         self.name = name
     def __str__(self):
-        return f"Person({self.name})"
+        return f"{self.name} is great!"
 
-print(str(Person("Nick")))  # Person(Nick)
+print(str(Person("Nick")))  # Nick is great
 
 
 # ===== METHOD TYPES IN PYTHON CLASSES =====
@@ -146,4 +146,3 @@ print(calc.multiply(4, 7))         # 28
 # - Instance methods: require 'self', work with instance data
 # - Class methods: require 'cls', work with class data, use @classmethod
 # - Static methods: no self/cls needed, utility functions, use @staticmethod
-

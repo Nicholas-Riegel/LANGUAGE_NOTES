@@ -15,6 +15,7 @@ fruits.insert(1, 'kiwi')  # at index 1
 # Remove
 fruits.remove('apple')    # by value
 fruits.pop()              # last item
+fruits.pop(1)             # by index, returns the removed item
 del fruits[0]             # by index
 
 # Slice
@@ -23,6 +24,24 @@ print(fruits[1:3])  # elements 1 and 2
 # Iterate
 for fruit in fruits:
     print(fruit)
+
+# Iterate with index using enumerate
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")
+
+# Iterate with index using range
+for i in range(len(fruits)):
+    print(f"{i}: {fruits[i]}")
+
+# Iterate backwards
+for fruit in reversed(fruits):
+    print(fruit)
+
+# Iterate with while loop
+i = 0
+while i < len(fruits):
+    print(fruits[i])
+    i += 1
 
 # Check
 if 'banana' in fruits:
