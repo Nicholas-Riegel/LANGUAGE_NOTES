@@ -145,5 +145,59 @@ public class StreamMethods {
         .collect(Collectors.partitioningBy(n -> n % 2 == 0));
         System.out.println("Even: " + partitioned.get(true));
         System.out.println("Odd: " + partitioned.get(false));
+
+
+        // ── METHOD REFERENCES ( :: ) ──────────────────────────────────────────
+        // :: is shorthand for a lambda that does nothing but call one method.
+        // Wherever a lambda is accepted, a method reference can be used instead.
+        //
+        // Four forms:
+        //
+        //   ClassName::staticMethod       String::valueOf      same as x -> String.valueOf(x)
+        //   instance::instanceMethod      out::println        same as x -> System.out.println(x)
+        //   ClassName::instanceMethod     String::toUpperCase same as x -> x.toUpperCase()
+        //   ClassName::new  (see below)
+
+        // Static method reference
+        List<String> numberStrings = numbers.stream()
+        .map(String::valueOf)          // same as: .map(n -> String.valueOf(n))
+        .collect(Collectors.toList());
+
+        // Instance method reference on a particular object
+        numbers.stream()
+        .forEach(System.out::println); // same as: .forEach(n -> System.out.println(n))
+
+        // Instance method reference on an arbitrary instance of a class
+        List<String> upper = names.stream()
+        .map(String::toUpperCase)      // same as: .map(s -> s.toUpperCase())
+        .collect(Collectors.toList());
+
+
+        // ── CONSTRUCTOR REFERENCE ( ::new ) ──────────────────────────────────
+        // ::new is a method reference that calls a constructor.
+        // The stream or API decides how many arguments to pass; the constructor
+        // that matches that signature is called.
+        //
+        // Most commonly seen with toArray() on streams:
+
+        String[] nameArray = names.stream()
+        .filter(n -> n.length() > 3)
+        .toArray(String[]::new);       // same as: .toArray(size -> new String[size])
+        // toArray() needs a function that takes an int (the size) and returns an array.
+        // String[]::new matches that — it calls new String[size] for whatever size the
+        // stream produces.
+
+        // 2-D array example — the shape you asked about:
+        // Object[][]::new  →  same as  size -> new Object[size][]
+        // This creates an array of Object[] rows; each row is filled in separately.
+        // You'll see it when a stream of arrays is collected into a 2-D array:
+
+        int[][] pairs = new int[][]{{1, 2}, {3, 4}, {5, 6}};
+        int[][] copy = java.util.Arrays.stream(pairs)
+        .toArray(int[][]::new);        // same as: .toArray(size -> new int[size][])
+
+        // The key insight: ::new is not magic. It is just a constructor treated as
+        // a function. The compiler matches it to the functional interface the API
+        // expects (here, IntFunction<T[]>), picks the right constructor, and calls it.
     }
 }   

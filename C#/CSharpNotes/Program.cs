@@ -1,0 +1,48 @@
+﻿global using F01; global using F02; global using F03; global using F04;
+global using F05; global using F06; global using F07; global using F08;
+global using F09; global using F10; global using F11; global using F12;
+global using F13; global using F14; global using F15; global using F16;
+global using F17; global using F18; global using F19; global using F20;
+global using F21; global using F22; global using F23; global using F24;
+global using F25; global using F26; global using F27; global using F28;
+global using F29; global using F30; global using F31; global using F32;
+global using F33; global using F34; global using F35; global using F36;
+
+// Uncomment the file you want to run:
+
+Variables.Run();
+// TypeConversion.Run();
+// Operators.Run();
+// Strings.Run();
+// ControlFlow.Run();
+// Loops.Run();
+// Methods.Run();
+// Arrays.Run();
+// Classes.Run();
+// AccessModifiers.Run();
+// Inheritance.Run();
+// Polymorphism.Run();
+// Interfaces.Run();
+// Enums.Run();
+// StructsRecords.Run();
+// Lists.Run();
+// Dictionaries.Run();
+// SetStacksQueues.Run();
+// Generics.Run();
+// Iterators.Run();
+// NullableTypes.Run();
+// Tuples.Run();
+// PatternMatching.Run();
+// Lambdas.Run();
+// DelegatesEvents.Run();
+// ExtensionMethods.Run();
+// AsyncAwait.Run();
+// LinqFundamentals.Run();
+// LinqAdvanced.Run();
+// Exceptions.Run();
+// FileIO.Run();
+// DependencyInjection.Run();
+// AttributesReflection.Run();
+// DateTimeMath.Run();
+// CollectionsAdvanced.Run();
+// Testing.Run();
