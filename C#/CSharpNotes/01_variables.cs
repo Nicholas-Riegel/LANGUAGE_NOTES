@@ -25,7 +25,7 @@ public static class Variables
 
         string name = "Nicholas";   // immutable sequence of chars
         object anything = 42;       // base type of everything in C#
-        int[]  nums     = { 1, 2 }; // arrays are reference types
+        int[]  nums     = [1, 2]; // arrays are reference types
 
         Console.WriteLine(name);    // Nicholas
 

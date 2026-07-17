@@ -63,12 +63,13 @@ dotnet run
 - `30_exceptions.cs` — `try/catch/finally`, `when` filters, `throw` expressions, custom exceptions, `using` for `IDisposable`
 - `31_file_io.cs` — `File`, `Directory`, `Path`, `StreamReader/Writer`, `FileStream`, `async` file reading
 
-### Practical & Interview Prep (32–36)
+### Practical & Interview Prep (32–37)
 - `32_dependency_injection.cs` — DI pattern, `IServiceCollection`, service lifetimes (Transient/Scoped/Singleton)
 - `33_attributes_reflection.cs` — Built-in attributes, custom attributes, `Type`, `PropertyInfo`, `MethodInfo`
 - `34_datetime_math.cs` — `DateTime`, `DateOnly`, `TimeOnly` (C# 10+), `TimeSpan`, `DateTimeOffset`, `Math` class
 - `35_collections_advanced.cs` — `ImmutableList`, `ReadOnlyCollection`, `ConcurrentDictionary`, `ArrayPool<T>`, `Span<T>`, collection expressions (C# 12)
 - `36_testing.cs` — xUnit structure, `[Fact]`, `[Theory]`, `[InlineData]`, Arrange-Act-Assert, mocking with Moq
+- `37_database_connectivity.cs` — ADO.NET (`SqlConnection`, `SqlCommand`, `SqlDataReader`), Entity Framework Core, async database operations, parameterized queries
 
 ---
 
