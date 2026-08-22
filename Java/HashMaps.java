@@ -1,5 +1,5 @@
 import java.util.*;
-
+@SuppressWarnings("unused")
 public class HashMaps {
     public static void main(String[] args) {
         // Create HashMap (Java equivalent of Python dictionaries)

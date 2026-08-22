@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+@SuppressWarnings("unused")
 public class ArrayLists_test {
     
     public static void main(String[] args) {

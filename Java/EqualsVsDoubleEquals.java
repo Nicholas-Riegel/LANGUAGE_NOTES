@@ -78,8 +78,8 @@ public class EqualsVsDoubleEquals {
         
         // 2. WRAPPER CLASSES - Use .equals()
         System.out.println("\nWrapper Classes:");
-        Integer num1 = new Integer(100);
-        Integer num2 = new Integer(100);
+        Integer num1 = Integer.valueOf(100);
+        Integer num2 = Integer.valueOf(100);
         
         System.out.println("Integer num1 = new Integer(100)");
         System.out.println("Integer num2 = new Integer(100)");
@@ -149,13 +149,13 @@ public class EqualsVsDoubleEquals {
         System.out.println("str1 == null: " + (str1 == null));  // false
         
         // UNSAFE: Calling .equals() on null
-        System.out.println("\nUnsafe .equals() on null:");
-        try {
-            System.out.println("str2.equals(str1): ");
-            str2.equals(str1);  // NullPointerException!
-        } catch (NullPointerException e) {
-            System.out.println("  ⚠️  NullPointerException thrown!");
-        }
+        // System.out.println("\nUnsafe .equals() on null:");
+        // try {
+        //     System.out.println("str2.equals(str1): ");
+        //     str2.equals(str1);  // NullPointerException!
+        // } catch (NullPointerException e) {
+        //     System.out.println("  ⚠️  NullPointerException thrown!");
+        // }
         
         // SAFE: Check null first, or use constant/literal first
         System.out.println("\nSafe patterns:");
@@ -206,15 +206,15 @@ public class EqualsVsDoubleEquals {
         System.out.println("✓ CORRECT: Override .equals() for content comparison (see Person class)");
         
         // Mistake 4: Not checking null
-        System.out.println("\n❌ MISTAKE 4: Not checking for null");
-        String nullStr = null;
-        try {
-            System.out.println("  nullStr.equals(\"hello\"): ");
-            nullStr.equals("hello");
-        } catch (NullPointerException e) {
-            System.out.println("  ⚠️  Crashed with NullPointerException!");
-        }
-        System.out.println("✓ CORRECT: Check null first or use safe patterns (see above)");
+        // System.out.println("\n❌ MISTAKE 4: Not checking for null");
+        // String nullStr = null;
+        // try {
+        //     System.out.println("  nullStr.equals(\"hello\"): ");
+        //     nullStr.equals("hello");
+        // } catch (NullPointerException e) {
+        //     System.out.println("  ⚠️  Crashed with NullPointerException!");
+        // }
+        // System.out.println("✓ CORRECT: Check null first or use safe patterns (see above)");
     }
 }
 
@@ -247,6 +247,7 @@ class Person {
 }
 
 // Example class WITHOUT .equals() override (uses default == behavior)
+@SuppressWarnings("unused")
 class BadPerson {
     private String name;
     

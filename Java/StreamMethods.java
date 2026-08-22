@@ -9,6 +9,7 @@ import java.util.OptionalInt;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class StreamMethods {
 
     public static void main(String[] args) {

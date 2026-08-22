@@ -1,3 +1,5 @@
+
+@SuppressWarnings("unused")
 public class FindingFiles {
     public static void main(String[] args) throws Exception {
 

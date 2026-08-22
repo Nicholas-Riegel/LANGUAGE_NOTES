@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Arrays;
 
 /**
  * HashSet Notes: Comprehensive Guide to Java HashSets
@@ -13,6 +14,7 @@ import java.util.*;
  * - Allows one null value
  * - Not thread-safe (use Collections.synchronizedSet() or ConcurrentHashMap.newKeySet())
  */
+@SuppressWarnings("unused")
 class HashSetNotes {
     
     public static void main(String[] args) {
