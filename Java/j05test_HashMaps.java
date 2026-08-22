@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class HashMaps_test {
+class j05test_HashMaps {
 
     public static void main(String[] args) {
         

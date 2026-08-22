@@ -5,7 +5,7 @@
 // This is one of the most common sources of bugs in Java!
 // Understanding when to use each is CRITICAL.
 
-public class EqualsVsDoubleEquals {
+public class j04_EqualsVsDoubleEquals {
     public static void main(String[] args) {
         demonstrateDoubleEquals();
         demonstrateDotEquals();

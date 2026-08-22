@@ -15,7 +15,7 @@ import java.util.Arrays;
  * - Not thread-safe (use Collections.synchronizedSet() or ConcurrentHashMap.newKeySet())
  */
 @SuppressWarnings("unused")
-public class HashSetNotes {
+public class j06notes_HashSet {
     
     public static void main(String[] args) {
         

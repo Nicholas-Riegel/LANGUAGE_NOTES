@@ -1,7 +1,7 @@
 import java.util.*;
 
 @SuppressWarnings("unused")
-public class ArrayLists {
+public class j03_ArrayLists {
     public static void main(String[] args) {
         
         // Create

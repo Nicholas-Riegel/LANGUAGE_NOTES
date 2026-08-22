@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 @SuppressWarnings("unused")
-public class ArrayLists_test {
+public class j03test_ArrayLists {
     
     public static void main(String[] args) {
 

@@ -27,7 +27,7 @@ class Dog {
 
 // Create an object and test
 @SuppressWarnings("unused")
-public class Classes {
+public class j07_Classes {
     public static void main(String[] args) {
         Dog fido = new Dog("Fido", 5);
         

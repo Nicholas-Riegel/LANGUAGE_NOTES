@@ -1,6 +1,6 @@
 
 @SuppressWarnings("unused")
-public class FindingFiles {
+public class j09_FindingFiles {
     public static void main(String[] args) throws Exception {
 
         // There are three common ways to locate a file in Java.
@@ -29,7 +29,7 @@ public class FindingFiles {
         //                        returns a URL, or null if not found
         // .getPath()           → converts the URL to a plain file-system path string
 
-        String path = FindingFiles.class
+        String path = j09_FindingFiles.class
                 .getClassLoader()
                 .getResource("login-data.xlsx")  // just the filename — no src/... prefix
                 .getPath();

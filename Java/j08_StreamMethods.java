@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class StreamMethods {
+public class j08_StreamMethods {
 
     public static void main(String[] args) {
         

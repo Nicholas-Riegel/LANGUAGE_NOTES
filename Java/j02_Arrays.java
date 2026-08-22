@@ -1,5 +1,7 @@
+import java.util.*;
+
 @SuppressWarnings("unused")
-public class Arrays {
+public class j02_Arrays {
     public static void main(String[] args) {
 
         // ── BASICS ────────────────────────────────────────────────────────────
@@ -17,33 +19,35 @@ public class Arrays {
 
 
         // ── ACCESS & MODIFY ───────────────────────────────────────────────────
-        System.out.println(numbers[0]);   // 3  (first element)
-        System.out.println(numbers[numbers.length - 1]); // 9  (last element)
+        // System.out.println(numbers[0]);   // 3  (first element)
+        // System.out.println(numbers[numbers.length - 1]); // 9  (last element)
 
         numbers[0] = 99;  // modify in place
 
 
         // ── LENGTH ────────────────────────────────────────────────────────────
         // Arrays use .length (a field, not a method — no parentheses)
-        System.out.println(fruits.length);  // 3
+        // System.out.println(fruits.length);  // 3
 
 
         // ── PRINTING ──────────────────────────────────────────────────────────
         // System.out.println(numbers) prints the memory address — not helpful.
         // Use Arrays.toString() to get a readable string.
-        System.out.println(java.util.Arrays.toString(numbers)); // [99, 1, 4, 1, 5, 9]
+        // System.out.println(
+        //     Arrays.toString(numbers)
+        // ); // [99, 1, 4, 1, 5, 9]
 
 
         // ── ITERATING ─────────────────────────────────────────────────────────
         // For-each loop (read-only, simplest)
-        for (String fruit : fruits) {
-            System.out.println(fruit);
-        }
+        // for (String fruit : fruits) {
+        //     System.out.println(fruit);
+        // }
 
         // Traditional for loop (needed when you need the index)
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.println(i + ": " + numbers[i]);
-        }
+        // for (int i = 0; i < numbers.length; i++) {
+        //     System.out.println(i + ": " + numbers[i]);
+        // }
 
 
         // ── SORTING & SEARCHING ───────────────────────────────────────────────
@@ -74,21 +78,21 @@ public class Arrays {
             { 7, 8, 9 }
         };
 
-        System.out.println(grid[0][0]); // 1  (row 0, col 0)
-        System.out.println(grid[1][2]); // 6  (row 1, col 2)
-        System.out.println(grid.length);    // 3  (number of rows)
-        System.out.println(grid[0].length); // 3  (number of columns in row 0)
+        // System.out.println(grid[0][0]); // 1  (row 0, col 0)
+        // System.out.println(grid[1][2]); // 6  (row 1, col 2)
+        // System.out.println(grid.length);    // 3  (number of rows)
+        // System.out.println(grid[0].length); // 3  (number of columns in row 0)
 
         // Iterating a 2D array
-        for (int[] row : grid) {
-            for (int cell : row) {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
-        }
+        // for (int[] row : grid) {
+        //     for (int cell : row) {
+        //         System.out.print(cell + " ");
+        //     }
+        //     System.out.println();
+        // }
 
         // Printing a 2D array readably
-        System.out.println(java.util.Arrays.deepToString(grid)); // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        // System.out.println(java.util.Arrays.deepToString(grid)); // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
         // Rows don't have to be the same length ("jagged" arrays)
         int[][] jagged = {
@@ -132,7 +136,7 @@ public class Arrays {
         String password      = (String)  credentials[0][1]; // "secret_sauce"
         boolean shouldPass   = (boolean) credentials[0][2]; // true
 
-        System.out.println(username + " / " + password + " → " + shouldPass);
+        // System.out.println(username + " / " + password + " → " + shouldPass);
     }
 }
 

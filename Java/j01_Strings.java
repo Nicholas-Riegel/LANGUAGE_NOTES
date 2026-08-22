@@ -1,6 +1,6 @@
 
 @SuppressWarnings("unused")
-public class Strings {
+public class j01_Strings {
     public static void main(String[] args) {
 
         // String concatenation
