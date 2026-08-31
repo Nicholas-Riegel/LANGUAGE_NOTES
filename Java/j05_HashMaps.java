@@ -1,52 +1,49 @@
 import java.util.*;
+
 @SuppressWarnings("unused")
 public class j05_HashMaps {
     public static void main(String[] args) {
-        // Create HashMap (Java equivalent of Python dictionaries)
-        HashMap<String, Object> person = new HashMap<>();
-        person.put("name", "Alice");
-        person.put("age", 30);
         
-        HashMap<String, Object> person2 = new HashMap<>();
-        person2.put("name", "Bob");
-        person2.put("age", 25);
+        // Create HashMap (Java equivalent of Python dictionaries)
+        HashMap<String, Integer> personIds = new HashMap<>();
+        personIds.put("John", 23);
+        personIds.put("Alice", 30);
         
         // Access
-        System.out.println(person.get("name"));
-        System.out.println(person.getOrDefault("email", "Not Found!"));
+        System.out.println(personIds.get("John"));
+        System.out.println(personIds.getOrDefault("Alice", -1));
         
         // Modify
-        person.put("age", 31);
+        personIds.put("Alice", 31);
         
         // Add
-        person.put("email", "alice@example.com");
+        personIds.put("Fred", 98);
         
         // Remove
-        person.remove("age");
-        person.remove("name");
+        personIds.remove("Fred");
         
         // Check
-        if (person.containsKey("email")) {
+        if (personIds.containsKey("John")) {
             System.out.println("yes");
         }
         
         // Keys, values, entrySet
-        System.out.println(person.keySet());
-        System.out.println(person.values());
-        System.out.println(person.entrySet());
+        System.out.println(personIds.keySet());
+        System.out.println(personIds.values());
+        System.out.println(personIds.entrySet());
         
         // Iterate over entries
-        for (Map.Entry<String, Object> entry : person.entrySet()) {
+        for (Map.Entry<String, Integer> entry : personIds.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
         
         // Iterate over keys only
-        for (String key : person.keySet()) {
+        for (String key : personIds.keySet()) {
             System.out.println(key);
         }
         
         // Iterate over values only
-        for (Object value : person.values()) {
+        for (int value : personIds.values()) {
             System.out.println(value);
         }
         

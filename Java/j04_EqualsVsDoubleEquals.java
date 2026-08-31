@@ -18,7 +18,10 @@ public class j04_EqualsVsDoubleEquals {
     // USE FOR: Primitives and reference identity
     static void demonstrateDoubleEquals() {
         System.out.println("\n===== DOUBLE EQUALS (==) =====");
-        System.out.println("Compares: Memory addresses (for objects) or values (for primitives)\n");
+        System.out.println("KEY CONCEPT:");
+        System.out.println("  - Primitive variables (int, double, boolean) store VALUES directly");
+        System.out.println("  - Object variables (String, Person, etc.) store REFERENCES (pointers to memory)");
+        System.out.println("  - == compares what the variable holds: values OR references\n");
         
         // 1. PRIMITIVES - Use ==
         int a = 5;
@@ -55,7 +58,7 @@ public class j04_EqualsVsDoubleEquals {
         System.out.println("nullStr == null: " + (nullStr == null));  // true
         System.out.println("s1 == null: " + (s1 == null));            // false
         
-        System.out.println("\n✓ Use == for: primitives, checking if same object, null checks");
+        System.out.println("\n✓ Use == for: primitives, checking if identical object, null checks");
     }
     
     // ===== DOT EQUALS (.equals()) =====
@@ -86,17 +89,21 @@ public class j04_EqualsVsDoubleEquals {
         System.out.println("num1 == num2: " + (num1 == num2));          // false - different objects
         System.out.println("num1.equals(num2): " + num1.equals(num2));  // true - same value
         
-        // 3. CUSTOM OBJECTS - Use .equals() if overridden
+        // 3. CUSTOM OBJECTS - MUST override .equals() to compare content
         System.out.println("\nCustom Objects:");
+        System.out.println("KEY: Every class inherits .equals() from Object.");
+        System.out.println("     By default, it compares references (like ==), NOT content.");
+        System.out.println("     You MUST override it to compare fields.\n");
+        
         Person p1 = new Person("Alice", 25);
         Person p2 = new Person("Alice", 25);
         Person p3 = new Person("Bob", 30);
         
         System.out.println("Person p1 = new Person(\"Alice\", 25)");
-        System.out.println("Person p2 = new Person(\"Alice\", 25)");
+        System.out.println("Person p2 = new Person(\"Alice\", 25)  // Different object, same data");
         System.out.println("Person p3 = new Person(\"Bob\", 30)");
-        System.out.println("p1 == p2: " + (p1 == p2));          // false - different objects
-        System.out.println("p1.equals(p2): " + p1.equals(p2));  // true - same content (equals overridden)
+        System.out.println("p1 == p2: " + (p1 == p2));          // false - different objects in memory
+        System.out.println("p1.equals(p2): " + p1.equals(p2));  // true - same content (Person overrides .equals())
         System.out.println("p1.equals(p3): " + p1.equals(p3));  // false - different content
         
         System.out.println("\n✓ Use .equals() for: Strings, wrappers, comparing object content");
@@ -200,10 +207,14 @@ public class j04_EqualsVsDoubleEquals {
         
         // Mistake 3: Forgetting to override .equals()
         System.out.println("\n❌ MISTAKE 3: Forgetting to override .equals() in custom class");
+        System.out.println("  Without override, .equals() uses default Object behavior (reference comparison)");
         BadPerson bp1 = new BadPerson("John");
         BadPerson bp2 = new BadPerson("John");
-        System.out.println("  bp1.equals(bp2): " + bp1.equals(bp2) + " (should be true but isn't!)");
-        System.out.println("✓ CORRECT: Override .equals() for content comparison (see Person class)");
+        System.out.println("  BadPerson bp1 = new BadPerson(\"John\")");
+        System.out.println("  BadPerson bp2 = new BadPerson(\"John\")  // Same name, different object");
+        System.out.println("  bp1.equals(bp2): " + bp1.equals(bp2) + " (acts like ==, compares memory address!)");
+        System.out.println("✓ CORRECT: Override .equals() in custom class to compare field values");
+        System.out.println("  (See Person class below - it overrides .equals() to compare name and age)");
         
         // Mistake 4: Not checking null
         // System.out.println("\n❌ MISTAKE 4: Not checking for null");
@@ -219,6 +230,7 @@ public class j04_EqualsVsDoubleEquals {
 }
 
 // Example class WITH proper .equals() override
+// IMPORTANT: This allows meaningful comparison of field values
 class Person {
     private String name;
     private int age;
@@ -228,11 +240,13 @@ class Person {
         this.age = age;
     }
     
+    // Override the default Object.equals() to compare field values instead of references
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) return true;  // Same object reference
+        if (obj == null || getClass() != obj.getClass()) return false;  // Not a Person or null
         Person other = (Person) obj;
+        // Compare actual field values
         return age == other.age && 
                (name == null ? other.name == null : name.equals(other.name));
     }
@@ -247,6 +261,8 @@ class Person {
 }
 
 // Example class WITHOUT .equals() override (uses default == behavior)
+// Problem: This class inherits .equals() from Object, which compares references (memory addresses)
+// Result: Two BadPerson objects with identical names will still return false with .equals()
 @SuppressWarnings("unused")
 class BadPerson {
     private String name;
@@ -255,7 +271,8 @@ class BadPerson {
         this.name = name;
     }
     
-    // No .equals() override - will use default (== comparison)
+    // ❌ NO .equals() override = default Object.equals() used
+    // Default behavior: return this == obj  (compares memory addresses, not field values)
 }
 
 // ========================================

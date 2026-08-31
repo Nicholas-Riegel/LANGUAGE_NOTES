@@ -1,5 +1,6 @@
 // Define a class
 class Dog {
+
     // Instance variables
     private String name;
     private int age;
@@ -24,37 +25,9 @@ class Dog {
         return age;
     }
 }
-
-// Create an object and test
-@SuppressWarnings("unused")
-public class j07_Classes {
-    public static void main(String[] args) {
-        Dog fido = new Dog("Fido", 5);
-        
-        // Access attributes/methods
-        System.out.println(fido.getName());        // 'Fido'
-        System.out.println(fido.speak("woof"));    // 'Fido says woof'
-        
-        // Test inheritance
-        Puppy puppy = new Puppy("Rex", 1);
-        System.out.println(puppy.speak("yip"));
-        
-        // Test counter
-        Counter c1 = new Counter();
-        Counter c2 = new Counter();
-        System.out.println(Counter.getCount());  // 2
-        
-        // Test Person toString
-        Person person = new Person("Nick");
-        System.out.println(person.toString());  // Person(Nick)
-        
-        // Test equality vs identity
-        EqualityDemo.demonstrate();
-    }
-}
-
 // Inheritance
 class Puppy extends Dog {
+    
     public Puppy(String name, int age) {
         super(name, age);
     }
@@ -72,6 +45,7 @@ class Puppy extends Dog {
 
 // Class variables (static)
 class Counter {
+
     private static int count = 0;
     
     public Counter() {
@@ -85,6 +59,7 @@ class Counter {
 
 // toString method
 class Person {
+
     private String name;
     
     public Person(String name) {
@@ -110,6 +85,7 @@ class Person {
 // Must override .equals() to compare content instead!
 
 class Book {
+
     private String title;
     private String author;
     
@@ -121,11 +97,17 @@ class Book {
     // Without overriding equals(), Book uses default (== comparison)
     // This means two Book objects with same title/author are NOT equal!
     
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
+    public String getTitle(){
+        return title;
+    }
+    
+    public String getAuthor(){
+        return author;
+    }
 }
 
 class BookWithEquals {
+    
     private String title;
     private String author;
     
@@ -137,6 +119,7 @@ class BookWithEquals {
     // Override equals() to compare content, not references
     @Override
     public boolean equals(Object obj) {
+    
         // 1. Check if same reference (identity) - quick optimization
         if (this == obj) return true;
         
@@ -173,13 +156,20 @@ class BookWithEquals {
         return result;
     }
     
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
+    public String getTitle(){ 
+        return title;
+    }
+    
+    public String getAuthor(){
+        return author;
+    }
 }
 
 // Example testing equality vs identity
 class EqualityDemo {
+
     public static void demonstrate() {
+
         System.out.println("\n===== EQUALITY vs IDENTITY =====");
         
         // ===== IDENTITY (==) =====
@@ -246,3 +236,33 @@ class EqualityDemo {
 // - null.equals(anything) throws NullPointerException!
 // - Use obj != null && obj.equals(other) to be safe
 
+
+// Create an object and test
+@SuppressWarnings("unused")
+public class j07_Classes {
+
+    public static void main(String[] args) {
+
+        Dog fido = new Dog("Fido", 5);
+        
+        // Access attributes/methods
+        System.out.println(fido.getName());        // 'Fido'
+        System.out.println(fido.speak("woof"));    // 'Fido says woof'
+        
+        // Test inheritance
+        Puppy puppy = new Puppy("Rex", 1);
+        System.out.println(puppy.speak("yip"));
+        
+        // Test counter
+        Counter c1 = new Counter();
+        Counter c2 = new Counter();
+        System.out.println(Counter.getCount());  // 2
+        
+        // Test Person toString
+        Person person = new Person("Nick");
+        System.out.println(person.toString());  // Person(Nick)
+        
+        // Test equality vs identity
+        EqualityDemo.demonstrate();
+    }
+}

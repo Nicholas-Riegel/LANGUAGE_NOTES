@@ -52,18 +52,18 @@ public class j02_Arrays {
 
         // ── SORTING & SEARCHING ───────────────────────────────────────────────
         int[] toSort = { 5, 2, 8, 1, 9 };
-        java.util.Arrays.sort(toSort);                   // sorts in place: [1, 2, 5, 8, 9]
+        Arrays.sort(toSort);                   // sorts in place: [1, 2, 5, 8, 9]
 
-        int index = java.util.Arrays.binarySearch(toSort, 5); // 2  (array must be sorted first)
+        int index = Arrays.binarySearch(toSort, 5); // 2  (array must be sorted first)
 
 
         // ── COPYING ───────────────────────────────────────────────────────────
         // Simple assignment just copies the reference — both variables point at the same array.
         int[] sameArray = toSort;       // NOT a copy
-        int[] realCopy  = java.util.Arrays.copyOf(toSort, toSort.length); // actual copy
+        int[] realCopy  = Arrays.copyOf(toSort, toSort.length); // actual copy
 
         // Copy a slice (from index 1 up to but not including index 4)
-        int[] slice = java.util.Arrays.copyOfRange(toSort, 1, 4); // [2, 5, 8]
+        int[] slice = Arrays.copyOfRange(toSort, 1, 4); // [2, 5, 8]
 
 
         // ── 2D ARRAYS ─────────────────────────────────────────────────────────
