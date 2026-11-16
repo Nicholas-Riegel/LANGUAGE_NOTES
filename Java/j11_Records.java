@@ -5,16 +5,19 @@ import java.util.*;
 // A record is a concise, immutable class intended primarily to represent a fixed set of data.
 
 // Create a record
-record Person(String name, int age) {}
+record Person(
+    String name, 
+    int age
+) {}
 
 
 @SuppressWarnings("unused")
-public class j10_Records {    
+public class j11_Records {    
 
     public static void main(String[] args) {
 
         // Create records
-        Person person1 = new Person("John", 26);
+        Person person1 = new Person("John", 27);
         Person person2 = new Person("Alice", 30);
 
         // Access fields

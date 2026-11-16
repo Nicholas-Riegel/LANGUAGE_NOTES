@@ -9,25 +9,30 @@ public static class Lists
         // =============================================
 
         // Create
-        var fruits = new List<string>();
-        fruits.Add("apple");
-        fruits.Add("banana");
-        fruits.Add("cherry");
+        var fruits = new List<string>
+        {
+            "apple",
+            "banana",
+            "cherry"
+        };
 
         // Collection initialiser
-        var numbers = new List<int> { 10, 20, 30, 40, 50 };
+        var numbers = new List<int>{ 10, 20, 30, 40, 50 };
 
         // ---- Access ----
         Console.WriteLine(fruits[0]);          // apple
         Console.WriteLine(fruits[^1]);         // cherry  (index from end)
-        Console.WriteLine(fruits.Count);       // 3  (Count not Length for collections)
+        Console.WriteLine(fruits.Count);       // 3  
 
         // ---- Add / Insert ----
         fruits.Add("date");                    // append to end
         fruits.Insert(1, "avocado");           // insert at index 1
-        fruits.AddRange(new[] { "elderberry", "fig" });  // add multiple
+        fruits.AddRange(["elderberry", "fig"]);  // add multiple
         Console.WriteLine(string.Join(", ", fruits));
 
+        // ---- Set ----
+        fruits[0] = "apricot";                 // replaces the element at index 0 
+        
         // ---- Remove ----
         fruits.Remove("banana");               // remove first matching value
         fruits.RemoveAt(0);                    // remove by index
@@ -35,7 +40,7 @@ public static class Lists
         fruits.RemoveAll(f => f.Length > 6);   // remove all matching predicate
 
         // ---- Search ----
-        var list = new List<int> { 5, 3, 8, 1, 9, 2, 7 };
+        var list = new List<int>{ 5, 3, 8, 1, 9, 2, 7 };
         Console.WriteLine(list.Contains(8));        // True
         Console.WriteLine(list.IndexOf(9));         // 4
         Console.WriteLine(list.LastIndexOf(3));     // 1
@@ -54,7 +59,7 @@ public static class Lists
         Console.WriteLine(string.Join(", ", list));  // 1, 2, 3, 5, 7, 8, 9
 
         // ---- Convert ----
-        int[] array = list.ToArray();
+        int[] array = [.. list];
         var copy    = new List<int>(list);          // copy constructor
 
         // ---- ForEach ----
@@ -84,14 +89,16 @@ public static class Lists
 
         // Navigate nodes
         LinkedListNode<string>? node = linked.Find("B");
-        if (node != null)
-        {
+        
+        if (node != null){
             linked.AddAfter(node, "B2");    // A ↔ B ↔ B2 ↔ C
             linked.AddBefore(node, "A2");   // A ↔ A2 ↔ B ↔ B2 ↔ C
         }
+        
         Console.WriteLine(string.Join(" → ", linked));
 
         linked.Remove("A2");
+
         Console.WriteLine(linked.First?.Value);  // A
         Console.WriteLine(linked.Last?.Value);   // C
         Console.WriteLine(linked.Count);         // 4

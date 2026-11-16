@@ -1,61 +1,64 @@
 # Create
-fruits = ['apple', 'banana', 'cherry']
+fruits = ['apple', 'banana', 'cherry', 'pear', 'peach']
 
 # Access
-print(fruits[0])      # 'apple'
-print(fruits[-1])     # 'cherry'
+# print(fruits[0])      # 'apple'
+# print(fruits[-1])     # 'cherry'
 
 # Modify
-fruits[1] = 'blueberry'
+# fruits[1] = 'blueberry'
 
 # Add
-fruits.append('date')
-fruits.insert(1, 'kiwi')  # at index 1
+# fruits.append('date')
+# fruits.insert(1, 'kiwi')  # at index 1
 
 # Remove
-fruits.remove('apple')    # by value
-fruits.pop()              # last item
-fruits.pop(1)             # by index, returns the removed item
-del fruits[0]             # by index
+# fruits.remove('apple')    # by value
+# fruits.pop()              # last item
+# fruits.pop(1)             # by index, returns the removed item
+# del fruits[0]             # by index
 
 # Slice
-print(fruits[1:3])  # elements 1 and 2
+# print(fruits[1:3])  # elements 1 and 2
 
 # Iterate
-for fruit in fruits:
-    print(fruit)
-
-# Iterate with index using enumerate
-for index, fruit in enumerate(fruits):
-    print(f"{index}: {fruit}")
+# for fruit in fruits:
+#     print(fruit)
 
 # Iterate with index using range
-for i in range(len(fruits)):
-    print(f"{i}: {fruits[i]}")
+# for i in range(5):
+#     print(f"{i}: {fruits[i]}")
+
+# for i in range(len(fruits)):
+#     print(f"{i}: {fruits[i]}")
+
+# Iterate with index using enumerate
+# for i, fruit in enumerate(fruits):
+#     print(f"{i}: {fruit}")
 
 # Iterate backwards
-for fruit in reversed(fruits):
-    print(fruit)
+# for fruit in reversed(fruits):
+#     print(fruit)
 
 # Iterate with while loop
 i = 0
-while i < len(fruits):
-    print(fruits[i])
-    i += 1
+# while i < len(fruits):
+#     print(fruits[i])
+#     i += 1
 
 # Check
-if 'banana' in fruits:
-    print('yes')
+# if 'banana' in fruits:
+    # print('yes')
 
 # Length
 len(fruits)
 
 # Count occurrences
 fruits_with_duplicates = ['apple', 'banana', 'apple', 'cherry']
-print(fruits_with_duplicates.count('apple'))  # Returns 2
+# print(fruits_with_duplicates.count('apple'))  # Returns 2
 
 # Find index of item
-print(fruits_with_duplicates.index('banana'))  # Returns 1
+# print(fruits_with_duplicates.index('banana'))  # Returns 1
 
 # Extend with another list
 fruits.extend(['grape', 'mango'])
@@ -63,16 +66,16 @@ fruits.extend(['grape', 'mango'])
 # Sort list
 numbers = [3, 1, 4, 1, 5]
 numbers.sort()  # Sorts in place
-print(numbers)
+# print(numbers)
 
 # Sort without modifying original
 original_numbers = [3, 1, 4, 1, 5]
 sorted_numbers = sorted(original_numbers)
-print(sorted_numbers)
+# print(sorted_numbers)
 
 # Reverse list
 numbers.reverse()  # Reverses in place
-print(numbers)
+# print(numbers)
 
 # Clear all items
 # fruits.clear()  # Removes all items
@@ -82,9 +85,9 @@ fruits_copy = fruits.copy()
 
 # Min, max, sum (for numeric lists)
 nums = [10, 5, 8, 3, 9]
-print(min(nums))
-print(max(nums))
-print(sum(nums))
+# print(min(nums))
+# print(max(nums))
+# print(sum(nums))
 
 # List Comprehension
 squares = [x*x for x in range(5)]  # [0, 1, 4, 9, 16]

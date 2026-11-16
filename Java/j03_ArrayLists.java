@@ -23,26 +23,26 @@ public class j03_ArrayLists {
         fruits.add(1, "kiwi");        // insert at index 1
         
         // Remove
-        // fruits.remove("apple");       // remove by value
-        // fruits.remove(fruits.size() - 1);  // remove last item
-        // fruits.remove(0);             // remove by index
+        fruits.remove("apple");       // remove by value
+        fruits.remove(fruits.size() - 1);  // remove last item
+        fruits.remove(0);             // remove by index
         
         // Sublist (equivalent to slice)
         List<String> subList = fruits.subList(1, 3);  // elements 1 and 2
         // System.out.println(subList);
         
         // Iterate
-        // for (String fruit : fruits) {
-        //     System.out.println(fruit);
-        // }
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
         
         // Check
-        // if (fruits.contains("banana")) {
-        //     System.out.println("yes");
-        // }
+        if (fruits.contains("banana")) {
+            System.out.println("yes");
+        }
         
         // Length
-        // System.out.println(fruits.size());
+        System.out.println(fruits.size());
         
         // Count occurrences
         ArrayList<String> fruitsWithDuplicates = new ArrayList<>();
@@ -57,7 +57,7 @@ public class j03_ArrayLists {
         // System.out.println(appleCount);  // Returns 2
         
         // Find index of item
-        // System.out.println(fruitsWithDuplicates.indexOf("banana"));  // Returns 1
+        System.out.println(fruitsWithDuplicates.indexOf("banana"));  // Returns 1
         
         // Extend with another list
         ArrayList<String> moreFruits = new ArrayList<>();
@@ -91,7 +91,7 @@ public class j03_ArrayLists {
         // System.out.println(numbers);
         
         // Clear all items
-        // fruits.clear();  // Removes all items
+        fruits.clear();  // Removes all items
         
         // Copy list
         ArrayList<String> fruitsCopy = new ArrayList<>(fruits);
@@ -137,23 +137,23 @@ public class j03_ArrayLists {
         ArrayList<String> list0 = new ArrayList<>(Arrays.asList("a", "b", "c"));
         
         // for-each loop (simplest, most common)
-        // for (String item : list0) {
-        //     System.out.println(item);
-        // }
+        for (String item : list0) {
+            System.out.println(item);
+        }
         
         // traditional for loop with index (when you need the index)
-        // for (int i = 0; i < list0.size(); i++) {
-        //     System.out.println(i + ": " + list0.get(i));
-        // }
+        for (int i = 0; i < list0.size(); i++) {
+            System.out.println(i + ": " + list0.get(i));
+        }
         
         // iterator (less common, but good to know)
-        // Iterator<String> it = list0.iterator();
-        // while (it.hasNext()) {
-        //     System.out.println(it.next());
-        // }
+        Iterator<String> it = list0.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
         
         // stream with forEach (modern approach)
-        // list0.stream().forEach(item -> System.out.println(item));
+        list0.stream().forEach(item -> System.out.println(item));
         
         
         // ────────────────────────────────────────────────────────────────────────
@@ -176,10 +176,10 @@ public class j03_ArrayLists {
         ArrayList<String> emptyTest = new ArrayList<>();
         
         // isEmpty() method
-        // System.out.println(emptyTest.isEmpty());             // true
+        System.out.println(emptyTest.isEmpty());             // true
         
         // size() == 0 (also works)
-        // System.out.println(emptyTest.size() == 0);           // true
+        System.out.println(emptyTest.size() == 0);           // true
         
         // After adding items
         emptyTest.add("item");
@@ -192,13 +192,13 @@ public class j03_ArrayLists {
         ArrayList<String> removeTest = new ArrayList<>(Arrays.asList("a", "b", "c", "d"));
         
         // remove by value — removes only FIRST occurrence
-        // removeTest.remove("b");        // ["a", "c", "d"]
+        removeTest.remove("b");        // ["a", "c", "d"]
         
         // remove by index
-        // removeTest.remove(0);          // removes element at index 0
+        removeTest.remove(0);          // removes element at index 0
         
         // clear() — removes ALL elements
-        // removeTest.clear();            // []
+        removeTest.clear();            // []
         
         
         // ────────────────────────────────────────────────────────────────────────

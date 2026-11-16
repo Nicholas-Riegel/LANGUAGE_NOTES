@@ -14,8 +14,8 @@ public static class Arrays
         nums[1] = 20;
 
         // Initialiser syntax
-        int[] scores  = { 90, 85, 78, 92, 88 };
-        string[] days = new string[] { "Mon", "Tue", "Wed" };
+        int[] scores  = [90, 85, 78, 92, 88];
+        string[] days = ["Mon", "Tue", "Wed"];
         var mixed     = new[] { 1, 2, 3 };   // type inferred as int[]
 
         Console.WriteLine(scores[0]);   // 90
@@ -45,7 +45,7 @@ public static class Arrays
         // COMMON ARRAY OPERATIONS
         // =============================================
 
-        int[] arr = { 3, 1, 4, 1, 5, 9, 2, 6 };
+        int[] arr = [3, 1, 4, 1, 5, 9, 2, 6];
 
         Array.Sort(arr);
         Console.WriteLine(string.Join(", ", arr));   // 1, 1, 2, 3, 4, 5, 6, 9
@@ -69,7 +69,7 @@ public static class Arrays
         // SLICES  (C# 8+ range syntax)
         // =============================================
 
-        int[] data = { 10, 20, 30, 40, 50 };
+        int[] data = [10, 20, 30, 40, 50];
         int[] middle = data[1..4];              // [20, 30, 40]  (end exclusive)
         int[] last3  = data[^3..];              // [30, 40, 50]
         int[] first2 = data[..2];              // [10, 20]
@@ -110,11 +110,12 @@ public static class Arrays
         // JAGGED ARRAYS  (array of arrays — rows can differ in length)
         // =============================================
 
-        int[][] jagged = new int[3][];
-        jagged[0] = new int[] { 1, 2 };
-        jagged[1] = new int[] { 3, 4, 5 };
-        jagged[2] = new int[] { 6 };
-
+        int[][] jagged = [
+            [1, 2], 
+            [3, 4, 5], 
+            [6]
+        ];
+        
         Console.WriteLine(jagged[1][2]);    // 5
 
         foreach (int[] row in jagged)
@@ -126,15 +127,15 @@ public static class Arrays
         // USEFUL ARRAY LINQ METHODS  (returns new collections)
         // =============================================
 
-        int[] numbers = { 5, 3, 8, 1, 9, 2, 7 };
+        int[] numbers = [5, 3, 8, 1, 9, 2, 7];
 
-        int   max     = numbers.Max();
-        int   min     = numbers.Min();
+        int max       = numbers.Max();
+        int min       = numbers.Min();
         double avg    = numbers.Average();
-        int   total   = numbers.Sum();
-        int[] sorted  = numbers.OrderBy(x => x).ToArray();
-        int[] evens   = numbers.Where(x => x % 2 == 0).ToArray();
-        int[] doubled = numbers.Select(x => x * 2).ToArray();
+        int total     = numbers.Sum();
+        int[] sorted  = [.. numbers.OrderBy(x => x)];
+        int[] evens   = [.. numbers.Where(x => x % 2 == 0)];
+        int[] doubled = [.. numbers.Select(x => x * 2)];
 
         Console.WriteLine($"Max: {max}, Min: {min}, Avg: {avg:F1}");
         Console.WriteLine(string.Join(", ", sorted));    // 1, 2, 3, 5, 7, 8, 9

@@ -71,7 +71,7 @@ public static class Dictionaries
 
         // ---- Merge / aggregate patterns ----
         // Count word frequency
-        string[] words = { "apple", "banana", "apple", "cherry", "banana", "apple" };
+        string[] words = ["apple", "banana", "apple", "cherry", "banana", "apple"];
         var freq = new Dictionary<string, int>();
         foreach (string w in words)
         {
